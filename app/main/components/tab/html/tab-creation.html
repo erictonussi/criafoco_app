@@ -1,0 +1,41 @@
+<ion-view class="has-header">
+    <ion-nav-title><span>{{'creation' | translate}}</span></ion-nav-title>
+    
+    <ion-nav-buttons side="left">
+        <a class="button button-icon" ui-sref="manager">
+            <i class="ion-ios-settings-strong"></i>
+        </a>
+    </ion-nav-buttons>
+    
+    <ion-nav-buttons side="right">
+        <button class="button button-icon" type="button" ng-click="viewObstaculos()">
+            <i class="ion-alert-circled"></i>
+        </button>
+        
+        <button class="button button-icon button-criafoco" type="button" ng-click="openTutorial()">
+            <img src="img/icon-criafoco.png">
+        </button>
+    </ion-nav-buttons>
+
+    <ion-floating-menu menu-color="#ebc57e" menu-icon="ion-navicon-round" menu-open-color="#ebc57e" menu-open-icon="ion-close-round" ng-if="finished == false">
+        <ion-floating-item ng-if="step == 'creation'" button-color="#ebc57e" text="{{'add' | translate}}" icon="ion-plus-round" ng-click="addModal()"></ion-floating-item>
+        <ion-floating-item ng-if="step == 'score-creation'" button-color="#ebc57e" text="{{'restart' | translate}}" icon="ion-refresh" ng-click="reset()"></ion-floating-item>
+        <ion-floating-item ng-if="step == 'creation'" button-color="#ebc57e" text="{{'evaluate_ideas' | translate}}" icon="ion-checkmark-round" ng-click="process()"></ion-floating-item>
+        <ion-floating-item ng-if="step == 'score-creation'" button-color="#ebc57e" text="{{'usage' | translate}}" icon="ion-checkmark-round" ng-click="process()"></ion-floating-item>
+    </ion-floating-menu>
+    
+    <ion-content>
+        <p class="padding text-center assertive foco-container" ng-click="focoModal()"><i>{{'my_focus' | translate}}:</i> <strong>{{foco}}</strong></p>
+        
+        <ion-list class="has-fab" ng-hide="records.length == 0" can-swipe="false" ng-cloak>
+            <ion-item class="item-icon-right" ng-repeat="record in records track by record.id" ng-click="editModal(record)">
+                <h2>{{record.descricao}}</h2>
+                <md-icon md-font-icon="{{record.avaliacao > -1 ? 'fa-star' : 'fa-star-o'}}" aria-label="{{record.descricao}}" class="icon md-secondary fa fa-2x" ng-class="record.avaliacao > -1 ? 'energized' : ''" ng-show="step == 'score-creation'" ng-click="scoreItem(record, $event)"></md-icon>
+            </ion-item>
+        </ion-list>
+
+        <div class="fb-spacer" ng-if="finished == false"></div>
+
+        <h2 ng-show="records.length == 0" class="empty-list">{{'empty_creation' | translate}}</h2>
+    </ion-content>
+</ion-view>

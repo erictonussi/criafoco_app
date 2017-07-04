@@ -1,0 +1,24 @@
+<ion-modal-view ng-controller="CriteriaCtrl">
+    <ion-header-bar class="bar bar-header bar-positive bar-custom bar-modal item-input-inset">
+        <label class="item-input-wrapper">
+            <input type="text" ng-model="criterio.descricao" placeholder="{{'write_criteria' | translate}}">
+        </label>
+        
+        <button type="button" class="button button-clear" ng-click="adicionar()">{{'add' | translate}}</button>
+    </ion-header-bar>
+    
+    <ion-content>
+        <p class="padding text-center positive"><strong>{{'info_add_criteria' | translate}}</strong></p>
+        
+        <ion-list class="list-check" ng-cloak>
+            <div class="item item-icon-right" ng-repeat="criterio in criterios track by criterio.descricao">
+                <ion-checkbox ng-model="criterio.selecionado">{{criterio.descricao}}</ion-checkbox>
+                <md-icon md-font-icon="fa-times" class="icon md-secondary fa fa-2x assertive" ng-show="criterio.projeto" ng-click="remover(criterio, $event)"></md-icon>
+            </div>
+        </ion-list>
+
+        <div class="button-bottom">
+            <a class="button button-block button-positive" ng-click="pronto()">{{'done' | translate}}</a>
+        </div>
+    </ion-content>
+</ion-modal-view>

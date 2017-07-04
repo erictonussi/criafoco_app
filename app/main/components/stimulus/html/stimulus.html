@@ -1,0 +1,17 @@
+<ion-modal-view ng-controller="StimulusCtrl">
+    <ion-header-bar class="bar bar-header bar-modal-stimulus" ng-hide="loading">
+        <button class="button button-icon" ng-click="closeStimulus()">
+            <i class="ion-android-close"></i>
+        </button>
+    </ion-header-bar>
+    
+    <ion-content class="content-stimulus" ng-hide="loading" scroll="false">
+        <div class="img-stimulus" style="background: url({{image}}); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+            <h2>{{question}}</h2>
+        </div>
+    </ion-content>
+
+    <div class="loading-overlay" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</ion-modal-view>

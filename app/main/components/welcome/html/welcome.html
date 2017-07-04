@@ -1,0 +1,66 @@
+<ion-view hide-nav-bar="true" view-title="Home">
+    <ion-content class="welcome-container bg-abstract padding text-center">
+        <img src="img/welcome-logo.png">
+
+        <!-- SignIn -->
+        <form name="loginForm" ng-show="isSignin" novalidate>
+            <h4>{{'fill_fields_enter' | translate}}</h4>
+
+            <label class="item item-input">
+                <i class="icon ion-person placeholder-icon"></i>
+                <input type="email" placeholder="{{'username' | translate}}" ng-model="person.username" required>
+            </label>
+
+            <label class="item item-input">
+                <i class="icon ion-locked placeholder-icon"></i>
+                <input type="password" placeholder="{{'password' | translate}}" ng-model="person.password" required>
+            </label>
+
+            <div class="row">
+                <button class="button button-dark col" type="button" ng-click="cancel()">{{'cancel' | translate}}</button>
+                <button class="button button-dark col" type="button" ng-click="signIn(loginForm)">{{'enter' | translate}}</button>
+            </div>
+        </form>
+
+        <!-- SignUp -->
+        <form name="registerForm" ng-show="isSignup" novalidate>
+            <h4>{{'fill_fields_register' | translate}}</h4>
+
+            <label class="item item-input">
+                <i class="icon ion-person placeholder-icon"></i>
+                <input type="email" placeholder="{{'username' | translate}}" ng-model="person.username" required>
+            </label>
+
+            <label class="item item-input">
+                <i class="icon ion-locked placeholder-icon"></i>
+                <input type="password" placeholder="{{'password' | translate}}" ng-model="person.password" required>
+            </label>
+
+            <div class="row">
+                <button class="button button-dark col" type="button" ng-click="cancel()">{{'cancel' | translate}}</button>
+                <button class="button button-dark col" type="button" ng-click="signUp(registerForm)">{{'register' | translate}}</button>
+            </div>
+
+            <!--p>{{'by_signing' | translate}} <a href="#/" ng-click="terms()">{{'terms' | translate}}</a> {{'and' | translate}} <a href="#" ng-click="privacy()">{{'privacy' | translate}}</a></p-->
+        </form>
+
+        <!-- Connect -->
+        <section ng-show="isConnect">
+            <h4>{{'register_info' | translate}}</h4>
+
+            <button class="button button-block button-positive facebook-background" type="button" ng-click="facebookLogin()"><i class="fa fa-facebook"></i> Facebook</button>
+            <!--button class="button button-block button-assertive google-plus-color-background" type="button" ng-click="googleLogin()"><i class="fa fa-google"></i> Google</button-->
+
+            <div class="row">
+                <button class="button button-dark col" type="button" ng-click="showRegisterForm()">{{'register' | translate}}</button>
+                <button class="button button-dark col" type="button" ng-click="showLoginForm()">{{'signin' | translate}}</button>
+            </div>
+
+            <!--p>{{'by_signing' | translate}} <a href="#/" ng-click="terms()">{{'terms' | translate}}</a> {{'and' | translate}} <a href="#" ng-click="privacy()">{{'privacy' | translate}}</a></p-->
+        </section>
+    </ion-content>
+
+    <div class="loading-overlay" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</ion-view>

@@ -1,0 +1,54 @@
+<ion-view view-title="{{'manager' | translate}}" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon" ng-click="$ionicGoBack()">
+            <i class="ion-android-close"></i>
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content>
+        <ion-list class="list-manager" ng-cloak>
+            <md-content class="padding-header text-center profile-header">
+                <img src="{{photo}}">
+                <p>{{name}}</p>
+            </md-content>
+            <a class="item item-icon-left" ui-sref="profile">
+                <md-icon md-font-icon="fa-pencil" class="fa fa-2x"></md-icon>
+                {{'edit_data' | translate}}
+            </a>
+            
+            <md-subheader class="md-no-sticky">{{'my_focus_only' | translate}}</md-subheader>
+            
+            <a class="item item-icon-left" ui-sref="archive">
+                <md-icon md-font-icon="fa-archive" class="fa fa-2x"></md-icon>
+                {{'archive' | translate}}
+            </a>
+            <!--a class="item item-icon-left">
+                <md-icon md-font-icon="fa-users" class="fa fa-2x"></md-icon>
+                {{'group' | translate}}
+            </a>
+            <a class="item item-icon-left">
+                <md-icon md-font-icon="fa-book" class="fa fa-2x"></md-icon>
+                {{'library' | translate}}
+            </a-->
+
+            <md-subheader class="md-no-sticky">&nbsp;</md-subheader>
+
+            <!--a class="item item-icon-left">
+                <md-icon md-font-icon="fa-question-circle" class="fa fa-2x"></md-icon>
+                {{'about' | translate}}
+            </a>
+            <a class="item item-icon-left">
+                <md-icon md-font-icon="fa-file-text" class="fa fa-2x"></md-icon>
+                {{'terms' | translate}}
+            </a-->
+            <a class="item item-icon-left" ng-click="logout()">
+                <md-icon md-font-icon="fa-sign-out" class="fa fa-2x"></md-icon>
+                {{'logout' | translate}}
+            </a>
+        </ion-list>
+    </ion-content>
+
+    <div class="loading-overlay" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</ion-view>

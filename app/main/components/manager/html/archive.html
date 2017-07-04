@@ -1,0 +1,20 @@
+<ion-view view-title="{{'archive' | translate}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-criafoco" type="button" ng-click="newProject()">
+            <img src="img/icon-add.png">
+        </button>
+    </ion-nav-buttons>
+    
+    <ion-content>
+        <ion-list class="list-manager" ng-hide="records.length == 0" ng-cloak>
+            <a ng-repeat="record in records track by record.id" class="item item-icon-right" ng-click="openProject(record)">
+                <h2>{{record.foco}}</h2>
+                <p ng-show="record.fim == undefined">{{'in_progress' | translate}}</p>
+                <p ng-show="record.fim != undefined">{{'end_at' | translate}} {{record.fim | date:'dd/MM/yyyy, HH:mm'}}</p>
+                <i class="icon ion-trash-b" ng-click="removeProject(record, $event)"></i>
+            </a>
+        </ion-list>
+
+        <h2 ng-show="records.length == 0" class="empty-list">{{'empty_list_project' | translate}}</h2>
+    </ion-content>
+</ion-view>

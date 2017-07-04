@@ -1,0 +1,64 @@
+var database, dbLoaded;
+
+document.addEventListener('deviceready', onDeviceReady, false);
+
+function onDeviceReady() {
+    if (Constants.dataSource == "localStorage") {
+        return;
+    }
+    
+    window.sqlitePlugin.openDatabase({name: 'criafoco.db', location: 'default'}, function(db) {
+        database = db;
+        seedDatabase();
+    }, function(error) {
+        console.log('Open database ERROR: ' + error.message);
+    });
+}
+
+function seedDatabase() {
+    $q = angular.injector(["ng"]).get("$q");
+    
+    var defer = $q.defer();
+
+    dbLoaded = defer.promise;
+
+    var initSql = [
+        'PRAGMA foreign_keys = ON',
+        'CREATE TABLE IF NOT EXISTS projeto (id INTEGER, id_usuario INTEGER NULL, id_projeto_pai INTEGER NULL, foco TEXT NULL, fase TEXT NOT NULL, etapa TEXT NOT NULL, inicio TEXT NOT NULL, fim TEXT NULL, UNIQUE(id, id_usuario) ON CONFLICT ABORT, PRIMARY KEY(id), FOREIGN KEY(id_projeto_pai) REFERENCES projeto(id))',
+        'CREATE TABLE IF NOT EXISTS tipo_registro (id INTEGER, flag TEXT NOT NULL, UNIQUE(flag) ON CONFLICT REPLACE, PRIMARY KEY(id))',
+        'CREATE TABLE IF NOT EXISTS criterio (id INTEGER, id_projeto INTEGER NULL, descricao TEXT NOT NULL, UNIQUE(id_projeto, descricao) ON CONFLICT REPLACE, PRIMARY KEY(id), FOREIGN KEY(id_projeto) REFERENCES projeto(id))',
+        'CREATE TABLE IF NOT EXISTS registro (id INTEGER, id_projeto INTEGER NOT NULL, id_tipo_registro INTEGER NOT NULL, descricao TEXT, avaliacao INTEGER NOT NULL, ob_op INTEGER NULL, descarte INTEGER NOT NULL, PRIMARY KEY(id), FOREIGN KEY(id_projeto) REFERENCES projeto(id), FOREIGN KEY(id_tipo_registro) REFERENCES tipo_registro(id))',
+        'CREATE TABLE IF NOT EXISTS nota (id INTEGER, id_criterio INTEGER NOT NULL, id_registro INTEGER NULL, valor INTEGER NOT NULL, UNIQUE(id_criterio, id_registro) ON CONFLICT REPLACE, PRIMARY KEY(id), FOREIGN KEY(id_criterio) REFERENCES criterio(id), FOREIGN KEY(id_registro) REFERENCES registro(id))'
+    ];
+
+    database.transaction(function(trans) {
+        initSql.forEach(function(query) {
+            trans.executeSql(query);
+        });
+
+        trans.executeSql('PRAGMA user_version', function(t, res) {
+            var version = res.rows.item(0).user_version;
+            kickOffMigration(version, trans);
+        });
+    }, function(error) {
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        defer.resolve();
+    });
+}
+
+function kickOffMigration(version, trans) {  
+    if (migrations[version] && typeof migrations[version] === 'function') {
+        migrations[version](trans);
+    }
+}
+
+var migrations = [];
+
+/*migrations[0] = function(transaction) {
+    var nextVersion = 1;
+    
+    transaction.executeSql('PRAGMA user_version = ' + nextVersion);
+    
+    kickOffMigration(nextVersion, transaction);
+};*/

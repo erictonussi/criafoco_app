@@ -1,0 +1,28 @@
+<ion-view view-title="{{'edit_data' | translate}}">
+    <ion-content class="padding">
+        <form name="profileForm" class="profile-form" novalidate>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'name' | translate}}</span>
+                    <input type="text" placeholder="{{'name' | translate}}" ng-model="person.name" required>
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'change_password' | translate}}</span>
+                    <input type="password" placeholder="{{'change_password' | translate}}" ng-model="person.password" required>
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'confirm_password' | translate}}</span>
+                    <input type="password" placeholder="{{'confirm_password' | translate}}" ng-model="person.confirm_password" required>
+                </label>
+
+                <button class="button button-dark col" type="button" ng-click="editProfile(profileForm)">{{'save' | translate}}</button>
+            </div>
+        </form>
+    </ion-content>
+    
+    <div class="loading-overlay" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</ion-view>

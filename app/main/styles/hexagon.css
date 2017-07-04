@@ -1,0 +1,50 @@
+.hex-row {
+    clear: left;
+}
+.hex.hex-even {
+    margin-top: 58px;
+}
+.hex.hex-hide {
+    visibility: hidden;
+}
+.hex {
+  width: 134px;
+  position: relative;
+  float: left;
+  margin-right: -25px;
+  margin-bottom: -73px;
+  overflow: hidden;
+  padding: 68px;
+  transform: rotate(30deg) skewY(30deg) scaleX(.866);
+  pointer-events: none;
+}
+.hex:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 8.1%;
+  right: 0;
+  bottom: 8.1%;
+  left: 0;
+  transform: scaleX(1.155) skewY(-30deg) rotate(-30deg);
+  background-color: #046bb4;
+}
+.hex a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8.1%;
+  right: 0;
+  bottom: 8.1%;
+  left: 0;
+  transform: scaleX(1.155) skewY(-30deg) rotate(-30deg);
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  font: 0.9em/2.4 "Trebuchet MS", Helvetica, sans-serif;
+  pointer-events: all;
+}
+.hex.red:before { background-color: #f05e5d; }
+.hex.ocean:before { background-color: #7cced8; }
