@@ -1,0 +1,22 @@
+{
+  "generator-m-ionic": {
+    "answers": {
+      "appName": "criafoco",
+      "appId": "br.com.criafoco",
+      "ionicCss": true,
+      "bowerPackages": [],
+      "platforms": [
+        "android"
+      ],
+      "plugins": [
+        "ionic-plugin-keyboard",
+        "cordova-plugin-statusbar"
+      ],
+      "appModule": "criafoco",
+      "ecosystems": [
+        "ionic-cloud"
+      ],
+      "install": "yarn"
+    }
+  }
+}
