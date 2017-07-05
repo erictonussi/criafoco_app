@@ -10,7 +10,7 @@ appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageS
                 dbLoaded.then(function() {
                     database.executeSql('SELECT * FROM tipo_registro WHERE flag = ?', [flag], function (resultSet) {
                         var tipo_registro = null;
-                        
+
                         if (resultSet.rows.length == 1) {
                             tipo_registro = new TipoRegistro(resultSet.rows.item(0).id, resultSet.rows.item(0).flag);
                         }
@@ -19,13 +19,15 @@ appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageS
                     }, defer.reject);
                 });
             } else {
-                var tipo_registro = localStorageService.get('tipo_registro').find(x => x.flag == flag);
+                var tipo_registro = localStorageService.get('tipo_registro').find(function (x) {
+                    return x.flag === flag;
+                });
                 defer.resolve(tipo_registro);
             }
 
             return defer.promise;
         },
-        
+
         /**
          * Initial values of tipo registro
          */
