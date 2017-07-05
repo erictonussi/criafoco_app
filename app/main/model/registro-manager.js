@@ -1,4 +1,4 @@
-appServices.factory('registroManager', ['Registro', '$q', 'localStorageService', function(Registro, $q, localStorageService) {
+appServices.factory('registroManager', function(Registro, $q, localStorageService, Config) {
     var registroManager = {
 
         /**
@@ -7,7 +7,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         getAll: function(projeto, tipo, descarte) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('SELECT * '
                         + 'FROM registro '
@@ -15,9 +15,9 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                         + 'AND id_projeto = ?'
                         + 'AND descarte = ?'
                         + 'ORDER BY avaliacao DESC, id ASC', [tipo.id, projeto.id, descarte], function (resultSet) {
-                        
+
                         var list = [];
-                        
+
                         for (var i = 0; i < resultSet.rows.length; i++) {
                             var registro = new Registro(resultSet.rows.item(i).id, resultSet.rows.item(i).id_projeto, resultSet.rows.item(i).id_tipo_registro, resultSet.rows.item(i).descricao, resultSet.rows.item(i).avaliacao, resultSet.rows.item(i).ob_op, resultSet.rows.item(i).descarte);
                             list.push(registro);
@@ -55,7 +55,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         getAllWithCriterio: function(projeto, tipo) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('SELECT r.*, COUNT(n.valor) AS quantidade, SUM(n.valor) AS soma '
                         + 'FROM registro r '
@@ -66,9 +66,9 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                         + 'AND p.id = ?'
                         + 'GROUP BY r.id, r.id_projeto, r.id_tipo_registro, r.descricao, r.avaliacao, r.ob_op '
                         + 'ORDER BY soma DESC, r.id ASC', [tipo.id, projeto.id], function (resultSet) {
-                        
+
                         var list = [];
-                        
+
                         for (var i = 0; i < resultSet.rows.length; i++) {
                             var registro = new Registro(resultSet.rows.item(i).id, resultSet.rows.item(i).id_projeto, resultSet.rows.item(i).id_tipo_registro, resultSet.rows.item(i).descricao, resultSet.rows.item(i).avaliacao, resultSet.rows.item(i).ob_op, resultSet.rows.item(i).descarte);
 
@@ -80,7 +80,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                             } else {
                                 registro.media = 0;
                             }
-                            
+
                             list.push(registro);
                         }
 
@@ -95,13 +95,13 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                 } else {
                     list = list.filter(x => x.projeto == projeto.id && x.tipo == tipo.id);
                 }
-                
+
                 var allNotas = localStorageService.get('nota');
 
                 if (allNotas == undefined) {
                     allNotas = [];
                 }
-                
+
                 list.forEach(function(registro, index) {
                     var notas = allNotas.filter(x => x.registro == registro.id);
 
@@ -112,7 +112,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
 
                     notas.forEach(function(nota) {
                         quantidade += 1;
-                        
+
                         if (nota.valor > -1) {
                             soma += nota.valor;
 
@@ -134,7 +134,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                     } else {
                         registro.media = 0;
                     }
-                    
+
                     list[index] = registro;
                 });
 
@@ -145,20 +145,20 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                         return b.soma - a.soma
                     }
                 });
-                
+
                 defer.resolve(list);
             }
 
             return defer.promise;
         },
-        
+
         /**
          * Add new registro
          */
         add: function(descricao, projeto, tipo) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('INSERT INTO registro (id_projeto, id_tipo_registro, descricao, avaliacao, descarte) VALUES (?, ?, ?, ?, ?)', [projeto.id, tipo.id, descricao, -1, false], function(resultSet) {
                         database.executeSql('SELECT MAX(id) AS id FROM registro', [], function(resultSet) {
@@ -170,7 +170,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                 });
             } else {
                 var manager = this;
-                
+
                 var list = localStorageService.get('registro');
 
                 if (list == undefined) {
@@ -195,12 +195,12 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         copy: function(registros) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     registros.forEach(function(registro) {
                         database.executeSql('INSERT INTO registro (id_projeto, id_tipo_registro, descricao, avaliacao, descarte) VALUES (?, ?, ?, ?, ?)', [registro.projeto, registro.tipo + 1, registro.descricao, -1, false]);
                     });
-                    
+
                     defer.resolve();
                 });
             } else {
@@ -209,12 +209,12 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                 var list = localStorageService.get('registro');
 
                 var nextId = manager.getNextId();
-                
+
                 registros.forEach(function(registro) {
                     var item = new Registro(nextId, registro.projeto, registro.tipo + 1, registro.descricao, -1, null, false);
-                        
+
                     list.push(item);
-                    
+
                     nextId += 1;
                 });
 
@@ -232,7 +232,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         save: function(registro) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('UPDATE registro SET descricao = ?, avaliacao = ?, ob_op = ?, descarte = ? WHERE id = ?', [registro.descricao, registro.avaliacao, registro.ob_op, registro.id, registro.descarte], defer.resolve, defer.reject);
                 });
@@ -259,7 +259,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         remove: function(registro) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('DELETE FROM registro WHERE id = ?', [registro.id], defer.resolve, defer.reject);
                 });
@@ -293,7 +293,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
         reset: function(projeto, tipo) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('UPDATE registro SET avaliacao = ?, ob_op = ?, descarte = ? WHERE id_projeto = ? AND id_tipo_registro = ?', [-1, 0, false, projeto.id, tipo.id]);
                     database.executeSql('DELETE FROM registro WHERE id_projeto = ? AND id_tipo_registro > ?', [projeto.id, tipo.id]);
@@ -316,7 +316,7 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
 
                             updateRegistros.push(registro);
                         } else if (registro.tipo < tipo.id) {
-                            updateRegistros.push(registro);    
+                            updateRegistros.push(registro);
                         } else {
                             removeRegistros.push(registro);
                         }
@@ -324,14 +324,14 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                         updateRegistros.push(registro);
                     }
                 });
-                
+
                 localStorageService.set('registro', updateRegistros);
 
                 var notas = localStorageService.get('nota');
 
                 if (notas != undefined && notas.length > 0) {
                     var updateNotas = [];
-                    
+
                     notas.forEach(function(nota) {
                         var index = removeRegistros.findIndex(x => x.id == nota.registro);
 
@@ -339,10 +339,10 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
                             updateNotas.push(nota);
                         }
                     });
-                    
+
                     localStorageService.set('nota', updateNotas);
                 }
-                
+
                 defer.resolve();
             }
 
@@ -354,9 +354,9 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
          */
         getNextId: function() {
             var lastId = 0;
-            
+
             var all = localStorageService.get('registro');
-            
+
             if (all != undefined && all.length > 0) {
                 lastId = all[all.length - 1].id;
             }
@@ -366,4 +366,4 @@ appServices.factory('registroManager', ['Registro', '$q', 'localStorageService',
     };
 
     return registroManager;
-}]);
+});

@@ -1,4 +1,4 @@
-var Constants = {
+var Constants_ = {
     startPage: {
         url: "/",
         state: "welcome"

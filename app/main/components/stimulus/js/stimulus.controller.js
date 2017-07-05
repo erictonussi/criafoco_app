@@ -1,26 +1,28 @@
-appControllers.controller('StimulusCtrl', ['$scope', '$rootScope', '$interval', 'HttpClient', function($scope, $rootScope, $interval, HttpClient) {
-    $scope.loading = true;
+'use strict';
+angular.module('starter.controllers')
+.controller('StimulusCtrl', function ($scope, $rootScope, $interval, HttpClient, Config) {
+  $scope.loading = true;
 
-    var promisseStimulus;
+  var promisseStimulus;
 
-    HttpClient.post('insight/get-insight', {fase: $scope.stimulusType, projeto: $rootScope.projeto.id}).then(function(data) {
-        $scope.loading = false;
+  HttpClient.post('insight/get-insight', {fase: $scope.stimulusType, projeto: $rootScope.projeto.id}).then(function (data) {
+    $scope.loading = false;
 
-        $scope.question = data.pergunta;
-        $scope.image = Constants.webservice.root + data.imagem;
+    $scope.question = data.pergunta;
+    $scope.image = Config.ENV.webservice.root + data.imagem;
 
-        promisseStimulus = $interval(closeStimulus, 8000);
-    }, function(error) {
-        $scope.loading = false;
-    });
+    promisseStimulus = $interval(closeStimulus, 8000);
+  }, function (/*error*/) {
+    $scope.loading = false;
+  });
 
-    var closeStimulus = function() {
-        $interval.cancel(promisseStimulus);
-        
-        promisseStimulus = undefined;
+  function closeStimulus () {
+    $interval.cancel(promisseStimulus);
 
-        $scope.stimulusModal.hide();
-    };
+    promisseStimulus = undefined;
 
-    $scope.closeStimulus = closeStimulus;
-}]);
+    $scope.stimulusModal.hide();
+  }
+
+  $scope.closeStimulus = closeStimulus;
+});

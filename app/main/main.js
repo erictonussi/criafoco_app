@@ -12,17 +12,17 @@ angular.module('starter', [
   'ion-floating-menu'
 ])
 
-.run(['$ionicPlatform', '$translate', '$cordovaGlobalization', '$state', '$rootScope', 'ngFB', function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB) {
-    ngFB.init({appId: Constants.facebook.appId});
+.run(function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB, Config) {
+    ngFB.init({appId: Config.ENV.facebook.appId});
 
     function getSuitableLanguage(language) {
-        for (var index = 0; index < Constants.languages.available.length; index++) {
-            if (Constants.languages.available[index] === language) {
-                return Constants.languages.available[index];
+        for (var index = 0; index < Config.ENV.languages.available.length; index++) {
+            if (Config.ENV.languages.available[index] === language) {
+                return Config.ENV.languages.available[index];
             }
         }
 
-        return Constants.languages.default
+        return Config.ENV.languages.default
     }
 
     function setApplicationLanguage() {
@@ -163,19 +163,19 @@ angular.module('starter', [
             navigator.app.backHistory();
         }
     }, 100);
-}])
+})
 
 // Internationalize and Localize
-.config(['$translateProvider', function ($translateProvider) {
+.config(function ($translateProvider, Config) {
     $translateProvider.useStaticFilesLoader({
         prefix: 'locales/',
         suffix: '.json'
     });
 
-    $translateProvider.preferredLanguage(Constants.languages.default);
+    $translateProvider.preferredLanguage(Config.ENV.languages.default);
 
     $translateProvider.useSanitizeValueStrategy('escapeParameters');
-}])
+})
 
 // Ionic configurations
 .config(['$ionicConfigProvider', function ($ionicConfigProvider) {
@@ -194,7 +194,7 @@ angular.module('starter', [
 }])
 
 // Router
-.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, Config) {
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
@@ -284,5 +284,5 @@ angular.module('starter', [
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise(Constants.startPage.url);
-}]);
+    $urlRouterProvider.otherwise(Config.ENV.startPage.url);
+});

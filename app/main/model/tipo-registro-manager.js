@@ -1,4 +1,4 @@
-appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageService', function(TipoRegistro, $q, localStorageService) {
+appServices.factory('tipoRegistroManager', function(TipoRegistro, $q, localStorageService, Config) {
     var tipoRegistroManager = {
         /**
          * Get tipo registro by flag
@@ -6,7 +6,7 @@ appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageS
         getByFlag: function(flag) {
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('SELECT * FROM tipo_registro WHERE flag = ?', [flag], function (resultSet) {
                         var tipo_registro = null;
@@ -32,7 +32,7 @@ appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageS
          * Initial values of tipo registro
          */
         install: function() {
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('INSERT INTO tipo_registro (flag) VALUES (?)', ['worry']);
                     database.executeSql('INSERT INTO tipo_registro (flag) VALUES (?)', ['fact']);
@@ -57,4 +57,4 @@ appServices.factory('tipoRegistroManager', ['TipoRegistro', '$q', 'localStorageS
     };
 
     return tipoRegistroManager;
-}]);
+});

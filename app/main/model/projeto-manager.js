@@ -1,18 +1,18 @@
-appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', function(Projeto, $q, localStorageService) {
+appServices.factory('projetoManager', function(Projeto, $q, localStorageService, Config) {
     var projetoManager = {
         /**
          * Get all projeto
          */
         getAll: function() {
             const person = localStorageService.get('person');
-            
+
             var defer = $q.defer();
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('SELECT * FROM projeto WHERE id_usuario = ?', [person.id], function (resultSet) {
                         var list = [];
-                        
+
                         for (var i = 0; i < resultSet.rows.length; i++) {
                             var projeto = new Projeto(resultSet.rows.item(i).id, resultSet.rows.item(i).id_usuario, resultSet.rows.item(i).id_projeto_pai, resultSet.rows.item(i).foco, resultSet.rows.item(i).fase, resultSet.rows.item(i).etapa, resultSet.rows.item(i).inicio, resultSet.rows.item(i).fim);
                             list.push(projeto);
@@ -27,7 +27,7 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
                 if (list == undefined) {
                     list = [];
                 }
-                
+
                 defer.resolve(list);
             }
 
@@ -39,15 +39,15 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
          */
         getActive: function() {
             const person = localStorageService.get('person');
-            
+
             var defer = $q.defer();
 
             var activeId = localStorageService.get('activeProject');
 
-            if (Constants.dataSource == "sqlite") {
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     var projeto = null;
-                    
+
                     if (activeId != undefined) {
                         database.executeSql('SELECT * FROM projeto WHERE id_usuario = ? AND id = ? LIMIT 1', [person.id, activeId], function (resultSet) {
                             if (resultSet.rows.length == 1) {
@@ -90,29 +90,29 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
 
             return defer.promise;
         },
-        
+
         /**
          * Add new projeto
          */
         add: function(foco, etapa) {
             const person = localStorageService.get('person');
-            
+
             var defer = $q.defer();
 
             const fase = foco ? 'fact' : 'worry';
-            
+
             if (etapa == null) {
                 etapa = '*';
             }
-            
+
             var now = new Date();
-            
-            if (Constants.dataSource == "sqlite") {
+
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('INSERT INTO projeto (id_usuario, foco, fase, etapa, inicio) VALUES (?, ?, ?, ?, ?)', [person.id, foco, fase, etapa, now], function(response) {
                         database.executeSql('SELECT * FROM projeto ORDER BY id DESC LIMIT 1', [], function (resultSet) {
                             var projeto = null;
-                            
+
                             if (resultSet.rows.length == 1) {
                                 projeto = new Projeto(resultSet.rows.item(i).id, resultSet.rows.item(i).id_usuario, resultSet.rows.item(i).id_projeto_pai, resultSet.rows.item(i).foco, resultSet.rows.item(i).fase, resultSet.rows.item(i).etapa, resultSet.rows.item(i).inicio, resultSet.rows.item(i).fim);
                                 localStorageService.set('activeProject', resultSet.rows.item(i).id);
@@ -124,13 +124,13 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
                 });
             } else {
                 var manager = this;
-                
+
                 var list = localStorageService.get('projeto');
 
                 if (list == undefined) {
                     list = [];
                 }
-                
+
                 var projeto = new Projeto(manager.getNextId(), person.id, null, foco, fase, etapa, now, null);
 
                 list.push(projeto);
@@ -149,8 +149,8 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
          */
         save: function(projeto) {
             var defer = $q.defer();
-            
-            if (Constants.dataSource == "sqlite") {
+
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('UPDATE projeto SET foco = ?, fase = ? WHERE id_usuario = ? AND id = ?', [projeto.foco, projeto.fase, projeto.usuario, foco.id], defer.resolve, defer.reject);
                 });
@@ -176,8 +176,8 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
          */
         finish: function(projeto) {
             var defer = $q.defer();
-            
-            if (Constants.dataSource == "sqlite") {
+
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('UPDATE projeto SET fim = ? WHERE id_usuario = ? AND id = ?', [projeto.fim, projeto.usuario, foco.id], defer.resolve, defer.reject);
                 });
@@ -207,8 +207,8 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
          */
         remove: function(projeto) {
             var defer = $q.defer();
-            
-            if (Constants.dataSource == "sqlite") {
+
+            if (Config.ENV.dataSource == "sqlite") {
                 dbLoaded.then(function() {
                     database.executeSql('DELETE projeto WHERE id_usuario = ? AND id = ?', [projeto.usuario, foco.id], defer.resolve, defer.reject);
                 });
@@ -235,14 +235,14 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
                         updateRegistros.push(registro);
                     }
                 });
-                
+
                 localStorageService.set('registro', updateRegistros);
 
                 var notas = localStorageService.get('nota');
 
                 if (notas != undefined && notas.length > 0) {
                     var updateNotas = [];
-                    
+
                     notas.forEach(function(nota) {
                         var index = removeRegistros.findIndex(x => x.id == nota.registro);
 
@@ -250,7 +250,7 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
                             updateNotas.push(nota);
                         }
                     });
-                    
+
                     localStorageService.set('nota', updateNotas);
                 }
 
@@ -258,7 +258,7 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
             }
 
             localStorageService.remove('activeProject');
-            
+
             return defer.promise;
         },
 
@@ -267,9 +267,9 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
          */
         getNextId: function() {
             var lastId = 0;
-            
+
             var all = localStorageService.get('projeto');
-            
+
             if (all != undefined && all.length > 0) {
                 lastId = all[all.length - 1].id;
             }
@@ -279,4 +279,4 @@ appServices.factory('projetoManager', ['Projeto', '$q', 'localStorageService', f
     };
 
     return projetoManager;
-}]);
+});

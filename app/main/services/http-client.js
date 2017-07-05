@@ -1,9 +1,9 @@
-appServices.factory('HttpClient', ['$http', '$q', 'localStorageService', function($http, $q, localStorageService) {
+appServices.factory('HttpClient', function($http, $q, localStorageService, Config) {
     function request(method, destination, parameters) {
         var defer = $q.defer();
 
-        var strAuth = Constants.webservice.auth;
-        
+        var strAuth = Config.ENV.webservice.auth;
+
         const person = localStorageService.get('person');
 
         if (person && destination.indexOf('salva-usuario') == -1) {
@@ -13,10 +13,10 @@ appServices.factory('HttpClient', ['$http', '$q', 'localStorageService', functio
                 strAuth = btoa(person.email + ':' + person.token);
             }
         }
-        
+
         $http({
             method: method,
-            url: Constants.webservice.url + destination,
+            url: Config.ENV.webservice.url + destination,
             data: parameters == null ? null : angular.toJson(parameters),
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ appServices.factory('HttpClient', ['$http', '$q', 'localStorageService', functio
         }).then(function successCallback(response) {
             if (response.status >= 200 && response.status < 300) {
                 var result = response.data;
-                
+
                 if (result.success) {
                     defer.resolve(result.data);
                 } else {
@@ -55,4 +55,4 @@ appServices.factory('HttpClient', ['$http', '$q', 'localStorageService', functio
             return request('DELETE', destination);
         }
     };
-}]);
+});
