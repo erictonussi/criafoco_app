@@ -1,6 +1,6 @@
 appControllers.controller('ManagerCtrl', ['$scope', '$rootScope', '$state', '$ionicPopup', '$translate', 'personManager', function($scope, $rootScope, $state, $ionicPopup, $translate, personManager) {
     var strings = {};
-    
+
     $translate(['logout', 'confirm_logout', 'yes', 'no']).then(function (translations) {
         strings = translations;
     });
@@ -10,7 +10,7 @@ appControllers.controller('ManagerCtrl', ['$scope', '$rootScope', '$state', '$io
     var person = personManager.get();
 
     if (person.foto == undefined) {
-        $scope.photo = "img/default-user.png";
+        $scope.photo = "main/assets/images/default-user.png";
     } else {
         $scope.photo = person.foto
     }
@@ -30,7 +30,7 @@ appControllers.controller('ManagerCtrl', ['$scope', '$rootScope', '$state', '$io
                 {text: strings.yes, type: 'button-positive', onTap: function(e) { return true; }}
             ]
         });
-        
+
         logoutPopup.then(function(res) {
             if (res) {
                 removePerson();
@@ -39,7 +39,7 @@ appControllers.controller('ManagerCtrl', ['$scope', '$rootScope', '$state', '$io
                     removePerson();
                 } else if (person.tipo == 'facebook') {
                     $scope.loading = true;
-                    
+
                     personManager.logoutFacebook().then(function(response) {
                         removePerson();
                     }, function(error) {
@@ -52,11 +52,11 @@ appControllers.controller('ManagerCtrl', ['$scope', '$rootScope', '$state', '$io
 
     var removePerson = function() {
         $scope.loading = false;
-        
+
         personManager.logout()
-        
+
         $rootScope.projeto = undefined;
-        
+
         $state.go('welcome');
     }
 }]);

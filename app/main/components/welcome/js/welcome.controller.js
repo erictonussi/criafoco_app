@@ -1,6 +1,6 @@
 appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$mdDialog', '$translate', '$ionicModal', '$ionicPopup', 'localStorageService', 'personManager', 'tipoRegistroManager', 'criterioManager', 'projetoManager', function($scope, $rootScope, $state, $mdDialog, $translate, $ionicModal, $ionicPopup, localStorageService, personManager, tipoRegistroManager, criterioManager, projetoManager) {
     var strings = {};
-    
+
     $translate(['invalid_username_password', 'alert', 'success_register']).then(function (translations) {
         strings = translations;
     });
@@ -9,11 +9,11 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
         projetoManager.getActive().then(function(response) {
             if (response) {
                 $scope.loading = false;
-                
+
                 $scope.isSignin = false;
                 $scope.isSignup = false;
                 $scope.isConnect = true;
-                
+
                 $rootScope.projeto = response;
 
                 var fase = $rootScope.projeto.fase;
@@ -55,12 +55,12 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
             }
         });
     }
-    
+
     if (personManager.get()) {
         checkActiveProject();
         return;
     }
-    
+
     $scope.isSignin = false;
     $scope.isSignup = false;
     $scope.isConnect = true;
@@ -98,7 +98,7 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
             }
         });
     };
-    
+
     $scope.googleLogin = function() {
     };
 
@@ -106,7 +106,7 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
         $scope.isSignup = true;
         $scope.isConnect = false;
     };
-    
+
     $scope.signUp = function(form) {
         if (form.$valid == false) {
             $ionicPopup.alert({
@@ -135,7 +135,7 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
         $scope.isSignin = true;
         $scope.isConnect = false;
     };
-    
+
     $scope.signIn = function(form) {
         if (form.$valid == false) {
             $ionicPopup.alert({
@@ -169,7 +169,7 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
         criterioManager.install();
     }
 
-    $ionicModal.fromTemplateUrl('templates/privacy/html/privacy.html', {
+    $ionicModal.fromTemplateUrl('main/components/privacy/html/privacy.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
@@ -180,7 +180,7 @@ appControllers.controller('WelcomeCtrl', ['$scope', '$rootScope', '$state', '$md
         $scope.privacyModal.show();
     };
 
-    $ionicModal.fromTemplateUrl('templates/terms/html/terms.html', {
+    $ionicModal.fromTemplateUrl('main/components/terms/html/terms.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {

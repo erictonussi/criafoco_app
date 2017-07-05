@@ -2,15 +2,15 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
     if (localStorageService.get('activeProject') == undefined) {
         return;
     }
-    
+
     var strings = {};
-    
+
     $translate(['creation', 'alert', 'error_list', 'add_idea', 'placeholder_idea', 'edit_idea', 'edit_focus', 'my_focus', 'evaluate', 'evaluate_more', 'error_save_data', 'confirm_remove', 'yes', 'no', 'error_remove', 'add_limit_idea', 'need_evaluate_idea', 'confirm_reset', 'cancel', 'empty_textarea', 'obstacles', 'tutorial']).then(function (translations) {
         strings = translations;
 
         $scope.title = strings.creation;
     });
-    
+
     $scope.records = [];
     $scope.current = {};
     $scope.step = 'creation';
@@ -41,11 +41,11 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
 
             if ($scope.popover != undefined) {
                 $scope.popover.remove();
-                
+
                 // bug fix : https://github.com/driftyco/ionic-v1/issues/53
                 angular.element(document.body).removeClass('popover-open');
             }
-            
+
             if (promisseStimulus != undefined) {
                 $interval.cancel(promisseStimulus);
                 promisseStimulus = undefined;
@@ -69,7 +69,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
     $scope.$on('modal.shown', function(event, modal) {
         if (modal.id == 1) {
             document.getElementById('writerText').focus();
-            
+
             $timeout(function() {
                 $ionicPopover.fromTemplateUrl('active-stimulus-popover.html', {
                     scope: $scope
@@ -99,7 +99,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
     };
 
     getTipoRegistro();
-    
+
     var refreshList = function() {
         registroManager.getAll($rootScope.projeto, type, false).then(function(response) {
             $scope.records = response;
@@ -142,13 +142,13 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
         if ($scope.step == 'score-creation') {
             return;
         }
-        
+
         $scope.current = record;
         $scope.writer.editing = true;
-        
+
         $scope.writer.title = strings.edit_idea;
         $scope.writer.placeholder = strings.placeholder_idea;
-        
+
         $ionicModal.fromTemplateUrl('writer.html', {
             id: 1,
             scope: $scope,
@@ -163,19 +163,19 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
         if ($scope.finished) {
             return;
         }
-        
+
         $scope.canActiveStimulus = false;
-        
+
         $scope.current = {};
-        
+
         $scope.current.descricao = $rootScope.projeto.foco;
-        
+
         $scope.writer.title = strings.edit_focus;
         $scope.writer.editing = true;
         $scope.writer.placeholder = strings.my_focus + '...';
         $scope.writer.isFoco = true;
         $scope.writer.maxLength = 50;
-        
+
         $ionicModal.fromTemplateUrl('writer.html', {
             id: 1,
             scope: $scope,
@@ -190,11 +190,11 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
         if ($rootScope.projeto.fase != 'creation') {
             return;
         }
-        
+
         var original = record.avaliacao;
 
         $scope.current = record;
-        
+
         var relevancePopup = $ionicPopup.alert({
             title: strings.evaluate,
             cssClass: 'custom-content-alert',
@@ -209,7 +209,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                         if (record.avaliacao == -1) {
                             record.avaliacao = 0;
                         }
-                        
+
                         return parseInt(record.avaliacao) != original;
                     }
                 }
@@ -275,7 +275,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                 $scope.foco = record.descricao;
 
                 projetoManager.save($rootScope.projeto);
-                
+
                 $scope.writerModal.hide();
             }
         }
@@ -290,7 +290,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                 {text: strings.yes, type: 'button-positive', onTap: function(e) { return true; }}
             ]
         });
-        
+
         confirmPopup.then(function(res) {
             if (res) {
                 registroManager.remove($scope.current).then(function(response) {
@@ -321,9 +321,9 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                 $state.go('tab.usage');
                 return;
             }
-            
+
             var canContinue = true;
-            
+
             $scope.records.forEach(function(element) {
                 if (canContinue && element.avaliacao == -1) {
                     canContinue = false;
@@ -392,7 +392,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                         $rootScope.projeto.fase = 'usage';
 
                         projetoManager.save($rootScope.projeto);
-                        
+
                         $state.go('tab.usage');
                     });
                 }
@@ -410,12 +410,12 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
             $interval.cancel(promisseStimulus);
             promisseStimulus = undefined;
         }
-        
+
         if ($scope.popover) {
             $scope.popover.hide();
         }
-        
-        $ionicModal.fromTemplateUrl('templates/stimulus/html/stimulus.html', {
+
+        $ionicModal.fromTemplateUrl('main/components/stimulus/html/stimulus.html', {
             id: 2,
             scope: $scope,
             animation: 'slide-in-up',
@@ -453,7 +453,7 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                 $interval.cancel(promisseStimulus);
                 promisseStimulus = undefined;
             }
-            
+
             promisseStimulus = $interval(openStimulus, 8000);
         }
     });
@@ -485,19 +485,19 @@ appControllers.controller('TabCreationCtrl', ['$scope', '$rootScope', '$state', 
                 {text: strings.yes, type: 'button-positive', onTap: function(e) { return true; }}
             ]
         });
-        
+
         resetPopup.then(function(res) {
             if (res) {
                 registroManager.reset($rootScope.projeto, type).then(function() {
                     $scope.step = searchType;
-                    
+
                     $rootScope.disableTabUsage = true;
                     $rootScope.disableTabScript = true;
-                    
+
                     $rootScope.projeto.fase = searchType;
-                    
+
                     projetoManager.save($rootScope.projeto);
-                    
+
                     refreshList();
                 });
             }

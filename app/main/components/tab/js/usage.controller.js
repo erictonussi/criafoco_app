@@ -2,15 +2,15 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
     if (localStorageService.get('activeProject') == undefined) {
         return;
     }
-    
+
     var strings = {};
-    
+
     $translate(['usage', 'alert', 'error_list', 'edit_focus', 'my_focus', 'need_evaluate_idea', 'cancel', 'empty_textarea', 'actions', 'tutorial', 'continue', 'conquest_e', 'conquest_d', 'congrats', 'info_congrats', 'script', 'finish']).then(function (translations) {
         strings = translations;
-        
+
         $scope.title = strings.usage;
     });
-    
+
     $scope.records = [];
     $scope.current = {};
     $scope.step = 'usage';
@@ -59,7 +59,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
     };
 
     getTipoRegistro();
-    
+
     var refreshList = function() {
         registroManager.getAllWithCriterio($rootScope.projeto, type).then(function(response) {
             $scope.records = response;
@@ -67,7 +67,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
             console.log(response);
 
             if (response[0].quantidade == 0) {
-                $ionicModal.fromTemplateUrl('templates/criteria/html/criteria.html', {
+                $ionicModal.fromTemplateUrl('main/components/criteria/html/criteria.html', {
                     id: 2,
                     scope: $scope,
                     animation: 'slide-in-up',
@@ -89,14 +89,14 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($scope.finished) {
             return;
         }
-        
+
         $scope.current = {};
-        
+
         $scope.writer.title = strings.edit_focus;
         $scope.writer.placeholder = strings.my_focus + '...';
-        
+
         $scope.current.descricao = $rootScope.projeto.foco;
-        
+
         $ionicModal.fromTemplateUrl('writer.html', {
             id: 1,
             scope: $scope,
@@ -111,7 +111,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($rootScope.projeto.fase != 'usage') {
             return;
         }
-        
+
         notaManager.getAll(record).then(function(response) {
             var original = JSON.stringify(response);
 
@@ -133,7 +133,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
                                     $scope.notas[index].valor = 0;
                                 }
                             });
-                            
+
                             return JSON.stringify($scope.notas) !== original;
                         }
                     }
@@ -169,7 +169,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
                 $scope.foco = record.descricao;
 
                 projetoManager.save($rootScope.projeto);
-                
+
                 $scope.writerModal.hide();
             }
         }
@@ -182,7 +182,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
         }
 
         var canContinue = true;
-        
+
         $scope.records.forEach(function(element) {
             if (canContinue && element.vote == false) {
                 canContinue = false;
@@ -204,7 +204,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
                 if (res) {
                     var popupE = $ionicPopup.alert({
                         cssClass: 'alert-conquest',
-                        template: strings.conquest_e + '<img src="img/conquest.png" class="conquest">',
+                        template: strings.conquest_e + '<img src="main/assets/images/conquest.png" class="conquest">',
                         buttons: [
                             {text: 'OK', type: 'button-positive', onTap: function(e) { return true; }}
                         ]
@@ -214,7 +214,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
                         if (res) {
                             var popupD = $ionicPopup.alert({
                                 cssClass: 'alert-conquest',
-                                template: strings.conquest_d + '<img src="img/conquest2.png" class="conquest">',
+                                template: strings.conquest_d + '<img src="main/assets/images/conquest2.png" class="conquest">',
                                 buttons: [
                                     {text: 'OK', type: 'button-positive', onTap: function(e) { return true; }}
                                 ]
@@ -245,7 +245,7 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
             $rootScope.projeto.fase = 'script';
 
             projetoManager.save($rootScope.projeto);
-            
+
             $state.go('tab.script');
         });
     };
@@ -259,27 +259,27 @@ appControllers.controller('TabUsageCtrl', ['$scope', '$rootScope', '$state', '$t
                 {text: strings.finish, type: 'button-positive', onTap: function(e) { return false; }}
             ]
         });
-        
+
         finishPopup.then(function(res) {
             if (res) {
                 $rootScope.projeto.fim = new Date();
-                
+
                 projetoManager.finish($rootScope.projeto).then(function(response) {
                     $rootScope.projeto.fase = 'script';
                     $rootScope.projeto.etapa = 's';
 
                     projetoManager.save($rootScope.projeto);
-                    
+
                     $state.go('tab.script');
                 });
             } else {
                 $rootScope.projeto.fim = new Date();
-                
+
                 projetoManager.finish($rootScope.projeto).then(function(response) {
                     $rootScope.projeto.fase = 'script';
 
                     projetoManager.save($rootScope.projeto);
-                    
+
                     $state.go('tab.script');
                 });
             }

@@ -1,10 +1,10 @@
 <ion-view view-title="{{'archive' | translate}}">
     <ion-nav-buttons side="right">
         <button class="button button-icon button-criafoco" type="button" ng-click="newProject()">
-            <img src="img/icon-add.png">
+            <img src="main/assets/images/icon-add.png">
         </button>
     </ion-nav-buttons>
-    
+
     <ion-content>
         <ion-list class="list-manager" ng-hide="records.length == 0" ng-cloak>
             <a ng-repeat="record in records track by record.id" class="item item-icon-right" ng-click="openProject(record)">

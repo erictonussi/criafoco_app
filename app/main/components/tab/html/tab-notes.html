@@ -1,15 +1,15 @@
 <ion-view class="has-header">
     <ion-nav-title><span>{{'note' | translate}}</span></ion-nav-title>
-    
+
     <ion-nav-buttons side="left">
         <a class="button button-icon" ui-sref="manager">
             <i class="ion-ios-settings-strong"></i>
         </a>
     </ion-nav-buttons>
-    
+
     <ion-nav-buttons side="right">
         <button class="button button-icon button-criafoco" type="button" ng-click="openTutorial()">
-            <img src="img/icon-criafoco.png">
+            <img src="main/assets/images/icon-criafoco.png">
         </button>
     </ion-nav-buttons>
 
@@ -19,10 +19,10 @@
         <ion-floating-item ng-if="step == 'note'" button-color="#086cb3" text="{{'evaluate_notes' | translate}}" icon="ion-checkmark-round" ng-click="process()"></ion-floating-item>
         <ion-floating-item ng-if="step == 'score-note'" button-color="#086cb3" text="{{'create_ideas' | translate}}" icon="ion-checkmark-round" ng-click="process()"></ion-floating-item>
     </ion-floating-menu>
-    
+
     <ion-content>
         <p class="padding text-center assertive foco-container" ng-click="focoModal()"><i>{{'my_focus' | translate}}:</i> <strong>{{foco}}</strong></p>
-        
+
         <ion-list class="has-fab" ng-hide="records.length == 0 || step == 'score-note'" can-swipe="step == 'note'" ng-cloak>
             <ion-item class="item-icon-right notes-content" ng-class="record.ob_op ? (record.ob_op == 2 ? 'obstaculo' : 'oportunidade') : ''" ng-repeat="record in records track by record.id" ng-click="editModal(record)">
                 <h2>{{record.descricao}}</h2>
@@ -34,12 +34,12 @@
 
         <ion-list class="has-fab" ng-hide="step == 'note'" ng-cloak>
             <md-subheader class="md-no-sticky">{{'opportunities' | translate | uppercase}}</md-subheader>
-            
+
             <ion-item class="item-icon-right notes-content" ng-class="record.ob_op ? (record.ob_op == 2 ? 'obstaculo' : 'oportunidade') : ''" ng-repeat="record in records track by record.id" ng-if="record.ob_op == 1" ng-click="editModal(record)">
                 <h2>{{record.descricao}}</h2>
                 <md-icon md-font-icon="{{record.avaliacao > -1 ? 'fa-star' : 'fa-star-o'}}" aria-label="{{record.descricao}}" class="icon md-secondary fa fa-2x" ng-class="record.avaliacao > -1 ? 'energized' : ''" ng-show="step == 'score-note'" ng-click="scoreItem(record, $event)"></md-icon>
             </ion-item>
-            
+
             <md-subheader class="md-no-sticky">{{'obstacles' | translate | uppercase}}</md-subheader>
 
             <ion-item class="item-icon-right notes-content" ng-class="record.ob_op ? (record.ob_op == 2 ? 'obstaculo' : 'oportunidade') : ''" ng-repeat="record in records track by record.id" ng-if="record.ob_op == 2" ng-click="editModal(record)">
@@ -50,6 +50,6 @@
 
         <div class="fb-spacer" ng-if="finished == false"></div>
 
-        <h2 ng-show="records.length == 0" class="empty-list"><img src="img/icon-swipe-left.png"> {{'empty_notes' | translate}}</h2>
+        <h2 ng-show="records.length == 0" class="empty-list"><img src="main/assets/images/icon-swipe-left.png"> {{'empty_notes' | translate}}</h2>
     </ion-content>
 </ion-view>

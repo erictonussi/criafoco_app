@@ -2,9 +2,9 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
     if (localStorageService.get('activeProject') == undefined) {
         return;
     }
-    
+
     var strings = {};
-    
+
     $translate(['note', 'alert', 'error_list', 'add_note', 'placeholder_note', 'edit_note', 'edit_focus', 'my_focus', 'evaluate', 'error_save_data', 'confirm_remove', 'yes', 'no', 'error_remove', 'add_limit_fact', 'need_evaluate_fact', 'confirm_reset', 'cancel', 'empty_textarea', 'define_op_ob', 'define_num_op_ob', 'tutorial', 'evaluate_more_ob', 'evaluate_more_op']).then(function (translations) {
         strings = translations;
 
@@ -13,11 +13,11 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($rootScope.projeto.fim == undefined && $scope.step == 'note') {
             $ionicPopup.alert({
                 title: strings.alert,
-                template: '<img src="img/icon-swipe-left.png"> ' + strings.define_op_ob
+                template: '<img src="main/assets/images/icon-swipe-left.png"> ' + strings.define_op_ob
             });
         }
     });
-    
+
     $scope.records = [];
     $scope.current = {};
     $scope.step = 'note';
@@ -59,7 +59,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
     };
 
     getTipoRegistro();
-    
+
     var refreshList = function() {
         registroManager.getAll($rootScope.projeto, type, false).then(function(response) {
             $scope.records = response;
@@ -104,13 +104,13 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($scope.step == 'score-note') {
             return;
         }
-        
+
         $scope.current = record;
         $scope.writer.editing = true;
-        
+
         $scope.writer.title = strings.edit_note;
         $scope.writer.placeholder = strings.placeholder_note;
-        
+
         $ionicModal.fromTemplateUrl('writer.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -124,17 +124,17 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($scope.finished) {
             return;
         }
-        
+
         $scope.current = {};
-        
+
         $scope.current.descricao = $rootScope.projeto.foco;
-        
+
         $scope.writer.title = strings.edit_focus;
         $scope.writer.editing = true;
         $scope.writer.placeholder = strings.my_focus + '...';
         $scope.writer.isFoco = true;
         $scope.writer.maxLength = 50;
-        
+
         $ionicModal.fromTemplateUrl('writer.html', {
             id: 1,
             scope: $scope,
@@ -149,11 +149,11 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
         if ($rootScope.projeto.fase != 'note') {
             return;
         }
-        
+
         var original = record.avaliacao;
 
         $scope.current = record;
-        
+
         var relevancePopup = $ionicPopup.alert({
             title: strings.evaluate,
             cssClass: 'custom-content-alert',
@@ -168,7 +168,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                         if (record.avaliacao == -1) {
                             record.avaliacao = 0;
                         }
-                        
+
                         return parseInt(record.avaliacao) != original;
                     }
                 }
@@ -234,7 +234,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                 $scope.foco = record.descricao;
 
                 projetoManager.save($rootScope.projeto);
-                
+
                 $scope.writerModal.hide();
             }
         }
@@ -249,7 +249,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                 {text: strings.yes, type: 'button-positive', onTap: function(e) { return true; }}
             ]
         });
-        
+
         confirmPopup.then(function(res) {
             if (res) {
                 registroManager.remove($scope.current).then(function(response) {
@@ -275,7 +275,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
             } else {
                 var oportunidades = [];
                 var obstaculos = [];
-                
+
                 $scope.records.forEach(function(element) {
                     if (element.ob_op != null && element.ob_op == 1) {
                         oportunidades.push(element);
@@ -287,11 +287,11 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                 if (oportunidades.length == 0 && obstaculos.length == 0) {
                     $ionicPopup.alert({
                         title: strings.alert,
-                        template: '<img src="img/icon-swipe-left.png"> ' + strings.define_op_ob
+                        template: '<img src="main/assets/images/icon-swipe-left.png"> ' + strings.define_op_ob
                     });
                 } else {
                     oportunidades.push(...obstaculos);
-                    
+
                     var bestVotes = oportunidades;
 
                     $scope.records.forEach(function(element, index) {
@@ -304,14 +304,14 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                     });
 
                     $scope.step = 'score-note';
-                    
+
                     refreshList();
                 }
 
                 /*if (oportunidades.length == 0 && obstaculos.length == 0) {
                     $ionicPopup.alert({
                         title: strings.alert,
-                        template: '<img src="img/icon-swipe-left.png"> ' + strings.define_op_ob
+                        template: '<img src="main/assets/images/icon-swipe-left.png"> ' + strings.define_op_ob
                     });
                 } else if (oportunidades.length > 7 || obstaculos.length > 7) {
                     $ionicPopup.alert({
@@ -320,7 +320,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                     });
                 } else {
                     oportunidades.push(...obstaculos);
-                    
+
                     var bestVotes = oportunidades;
 
                     $scope.records.forEach(function(element, index) {
@@ -333,7 +333,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                     });
 
                     $scope.step = 'score-note';
-                    
+
                     refreshList();
                 }*/
             }
@@ -344,7 +344,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
             }
 
             var canContinue = true;
-            
+
             $scope.records.forEach(function(element) {
                 if (canContinue && element.avaliacao == -1) {
                     canContinue = false;
@@ -354,7 +354,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
             if (canContinue) {
                 var oportunidades = [];
                 var obstaculos = [];
-                
+
                 $scope.records.forEach(function(element) {
                     if (element.ob_op != null && element.ob_op == 1) {
                         oportunidades.push(element);
@@ -362,7 +362,7 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                         obstaculos.push(element);
                     }
                 });
-                
+
                 const itemsOp = Array.from({length: 11}, (v, k) => []);
 
                 oportunidades.forEach(function(element) {
@@ -463,13 +463,13 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                             registroManager.save(element);
                         }
                     });
-                    
+
                     refreshList();
 
                     $rootScope.projeto.fase = 'creation';
 
                     projetoManager.save($rootScope.projeto);
-                    
+
                     $state.go('tab.creation');
                 }
             } else {
@@ -510,20 +510,20 @@ appControllers.controller('TabNotesCtrl', ['$scope', '$rootScope', '$state', '$t
                 {text: strings.yes, type: 'button-positive', onTap: function(e) { return true; }}
             ]
         });
-        
+
         resetPopup.then(function(res) {
             if (res) {
                 registroManager.reset($rootScope.projeto, type).then(function() {
                     $scope.step = searchType;
-                    
+
                     $rootScope.disableTabCreation = true;
                     $rootScope.disableTabUsage = true;
                     $rootScope.disableTabScript = true;
-                    
+
                     $rootScope.projeto.fase = searchType;
-                    
+
                     projetoManager.save($rootScope.projeto);
-                    
+
                     refreshList();
                 });
             }

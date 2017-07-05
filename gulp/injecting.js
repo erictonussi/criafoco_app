@@ -19,6 +19,7 @@ gulp.task('inject-all', ['styles', 'wiredep', 'bower-fonts', 'environment', 'bui
         gulp.src(paths.jsFiles)
           .pipe($.plumber()) // use plumber so watch can start despite js errors
           .pipe($.naturalSort())
+          .pipe($.babel({ presets: ['es2015'] }))
           .pipe($.angularFilesort()),
         {relative: true}))
     .pipe(

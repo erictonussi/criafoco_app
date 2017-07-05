@@ -14,9 +14,9 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/ionic/css/ionic.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/ion-floating-menu/dist/ion-floating-menu.css" />
-    <link rel="stylesheet" href="bower_components/ion-floating-menu/dist/ion-floating-menu.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -26,12 +26,14 @@
     <!-- endinject -->
     <!-- endbuild -->
   </head>
-  <body ng-app="criafoco">
-
+  <body ng-app="criafoco" class="hide-native-scroll-y">
+    <style type="text/css">{{customStyle}}</style>
     <!-- the nav bar will be updated as we navigate between views -->
     <!-- <ion-nav-bar> can be removed when using sidemenu (contained in menu.html) -->
-    <ion-nav-bar class="bar-assertive">
-      <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-bar class="bar-custom">
+      <ion-nav-back-button class="button-clear">
+        <i class="ion-android-arrow-back"></i>
+      </ion-nav-back-button>
     </ion-nav-bar>
     <!-- the current view will be rendered in the <ion-nav-view> directive -->
     <ion-nav-view></ion-nav-view>
@@ -56,17 +58,102 @@
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/ion-floating-menu/dist/ion-floating-menu.js"></script>
-    <script src="bower_components/ion-floating-menu/dist/ion-floating-menu.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/app.js -->
     <!-- inject:js -->
+    <script src="main/services/services.js"></script>
+    <script src="main/services/http-client.js"></script>
+    <script src="main/services/database.js"></script>
+    <script src="main/openfb/openfb.js"></script>
+    <script src="main/openfb/ngopenfb.js"></script>
+    <script src="main/model/tipo-registro-manager.js"></script>
+    <script src="main/model/tipo-registro.js"></script>
+    <script src="main/model/registro-manager.js"></script>
+    <script src="main/model/registro.js"></script>
+    <script src="main/model/projeto-manager.js"></script>
+    <script src="main/model/projeto.js"></script>
+    <script src="main/model/person-manager.js"></script>
+    <script src="main/model/person.js"></script>
+    <script src="main/model/nota-manager.js"></script>
+    <script src="main/model/nota.js"></script>
+    <script src="main/model/criterio-manager.js"></script>
+    <script src="main/model/criterio.js"></script>
     <script src="main/main.js"></script>
-    <script src="main/controllers/user-ctrl.js"></script>
+    <script src="main/controllers/controllers.js"></script>
+    <script src="main/constants/constants.js"></script>
     <script src="main/constants/config-const.js"></script>
+    <script src="main/components/welcome/js/welcome.controller.js"></script>
+    <script src="main/components/tab/js/usage.controller.js"></script>
+    <script src="main/components/tab/js/tabs.controller.js"></script>
+    <script src="main/components/tab/js/script.controller.js"></script>
+    <script src="main/components/tab/js/notes.controller.js"></script>
+    <script src="main/components/tab/js/facts.controller.js"></script>
+    <script src="main/components/tab/js/creation.controller.js"></script>
+    <script src="main/components/stimulus/js/stimulus.controller.js"></script>
+    <script src="main/components/start/js/start.controller.js"></script>
+    <script src="main/components/manager/js/profile.controller.js"></script>
+    <script src="main/components/manager/js/manager.controller.js"></script>
+    <script src="main/components/manager/js/archive.controller.js"></script>
+    <script src="main/components/criteria/js/criteria.controller.js"></script>
+    <script src="cordova.js"></script>
     <script src="app.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
   </body>
+  <script id="writer.html" type="text/ng-template">
+      <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-positive bar-custom bar-modal">
+              <button class="button button-icon" ng-click="writerModal.hide()">
+                  <i class="ion-android-close"></i>
+              </button>
+
+              <h1 class="title"><span>{{writer.title}}</span></h1>
+
+              <div class="buttons">
+                  <button class="button button-icon button-criafoco" type="button" ng-show="writer.showTutorial" ng-click="openTutorialFoco()">
+                      <img src="main/assets/images/icon-criafoco.png">
+                  </button>
+
+                  <button class="button button-icon button-estimulo" type="button" ng-show="canActiveStimulus" ng-click="stimulusOptions($event)">
+                      <img src="main/assets/images/icon-estimulo.png">
+                  </button>
+
+                  <button class="button button-icon" type="button" ng-click="save(current)">
+                      <i class="ion-android-done"></i>
+                  </button>
+              </div>
+          </ion-header-bar>
+
+          <ion-content>
+              <form class="formTextArea" novalidate>
+                  <md-input-container class="md-block">
+                      <label></label>
+                      <textarea id="writerText" placeholder="{{writer.placeholder}}" ng-model="current.descricao" md-maxlength="{{writer.maxLength}}" maxLength="{{writer.maxLength}}" rows="5"></textarea>
+                  </md-input-container>
+
+                  <md-input-container class="md-block" ng-hide="writer.editing || writer.isFoco">
+                      <md-checkbox aria-label="Adicionar outro" ng-model="writer.continue" class="md-warn">{{'add_another' | translate}}</md-checkbox>
+                  </md-input-container>
+              </form>
+          </ion-content>
+
+          <div class="button-bottom" ng-show="writer.editing && writer.isFoco == false">
+              <a class="button button-block button-assertive" ng-click="remove($event)">{{'remove' | translate}}</a>
+          </div>
+      </ion-modal-view>
+  </script>
+
+  <script id="active-stimulus-popover.html" type="text/ng-template">
+      <ion-popover-view>
+          <ion-content scroll="false">
+              <ion-toggle ng-model="activeStimulus" ng-change="stimulusChange()" toggle-class="toggle-positive">{{'stimulus' | translate}}</ion-toggle>
+
+              <md-divider></md-divider>
+
+              <p>{{'info_stimulus' | translate}}</p>
+          </ion-content>
+      </ion-popover-view>
+  </script>
 </html>

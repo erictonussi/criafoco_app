@@ -202,19 +202,19 @@ angular.module('starter', [
     $stateProvider
         .state('welcome', {
             url: '/',
-            templateUrl: 'templates/welcome/html/welcome.html',
+            templateUrl: 'main/components/welcome/html/welcome.html',
             controller: 'WelcomeCtrl'
         })
         .state('start', {
             cache: false,
             url: '/start',
-            templateUrl: 'templates/start/html/start.html',
+            templateUrl: 'main/components/start/html/start.html',
             controller: 'StartCtrl'
         })
         .state('tab', {
             url: '/tab',
             abstract: true,
-            templateUrl: 'templates/tab/html/tab.html',
+            templateUrl: 'main/components/tab/html/tab.html',
             controller: 'TabsCtrl'
         })
         .state('tab.facts', {
@@ -222,7 +222,7 @@ angular.module('starter', [
             url: '/facts',
             views: {
                 'tab-facts': {
-                    templateUrl: 'templates/tab/html/tab-facts.html',
+                    templateUrl: 'main/components/tab/html/tab-facts.html',
                     controller: 'TabFactsCtrl'
                 }
             }
@@ -232,7 +232,7 @@ angular.module('starter', [
             url: '/notes',
             views: {
                 'tab-notes': {
-                    templateUrl: 'templates/tab/html/tab-notes.html',
+                    templateUrl: 'main/components/tab/html/tab-notes.html',
                     controller: 'TabNotesCtrl'
                 }
             }
@@ -242,7 +242,7 @@ angular.module('starter', [
             url: '/creation',
             views: {
                 'tab-creation': {
-                    templateUrl: 'templates/tab/html/tab-creation.html',
+                    templateUrl: 'main/components/tab/html/tab-creation.html',
                     controller: 'TabCreationCtrl'
                 }
             }
@@ -252,7 +252,7 @@ angular.module('starter', [
             url: '/usage',
             views: {
                 'tab-usage': {
-                    templateUrl: 'templates/tab/html/tab-usage.html',
+                    templateUrl: 'main/components/tab/html/tab-usage.html',
                     controller: 'TabUsageCtrl'
                 }
             }
@@ -262,24 +262,24 @@ angular.module('starter', [
             url: '/script',
             views: {
                 'tab-script': {
-                    templateUrl: 'templates/tab/html/tab-script.html',
+                    templateUrl: 'main/components/tab/html/tab-script.html',
                     controller: 'TabScriptCtrl'
                 }
             }
         })
         .state('manager', {
             url: '/manager',
-            templateUrl: 'templates/manager/html/manager.html',
+            templateUrl: 'main/components/manager/html/manager.html',
             controller: 'ManagerCtrl'
         })
         .state('profile', {
             url: '/profile',
-            templateUrl: 'templates/manager/html/profile.html',
+            templateUrl: 'main/components/manager/html/profile.html',
             controller: 'ProfileCtrl'
         })
         .state('archive', {
             url: '/archive',
-            templateUrl: 'templates/manager/html/archive.html',
+            templateUrl: 'main/components/manager/html/archive.html',
             controller: 'ArchiveCtrl'
         });
 
