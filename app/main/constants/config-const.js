@@ -10,12 +10,13 @@ angular.module('starter')
       'state': 'welcome'
     },
     'webservice': {
-      'root': 'http://54.233.92.83',
-      'url': 'http://54.233.92.83/criafoco-services/',
+      'root': '',
+      'url': 'criafoco-services/',
       'auth': 'YXBpdXNlcjphcGlwYXNz'
     },
     'facebook': {
-      'appId': '1299266256819488'
+      'appId-': '1299266256819488',
+      'appId': '104219843035003'
     },
     'languages': {
       'default': 'pt-BR',

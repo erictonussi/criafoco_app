@@ -5,7 +5,7 @@
   },
   "scripts": {
     "test": "gulp build --minify && gulp karma",
-    "start": "gulp watch",
+    "start": "gulp watch --proxy",
     "watch": "npm start",
     "prepare:all": "gulp --cordova 'prepare'",
     "livereload:ios": "gulp --livereload 'run ios'",
@@ -74,12 +74,8 @@
   "generator-m-ionic": {
     "proxies": [
       {
-        "proxyMapFrom": "/postman-proxy",
-        "proxyMapTo": "https://echo.getpostman.com"
-      },
-      {
-        "proxyMapFrom": "/another-proxy",
-        "proxyMapTo": "https://echo.getpostman.com"
+        "proxyMapFrom": "/criafoco-services",
+        "proxyMapTo": "http://54.233.92.83/criafoco-services"
       }
     ]
   },
