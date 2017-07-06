@@ -11,7 +11,7 @@ angular.module('starter.controllers')
 
     $scope.person = {name: person.nome};
 
-    $scope.editProfile = function (form) {
+    $scope.editProfile = function (/*form*/) {
       if ($scope.person.password !== $scope.person.confirm_password) {
         $ionicPopup.alert({
           title: strings.alert,
@@ -27,11 +27,11 @@ angular.module('starter.controllers')
 
         var password = $scope.person.password;
 
-        if (password == undefined) {
+        if (password === undefined) {
           password = person.password;
         }
 
-        personManager.saveOnline(person.email, $scope.person.name, password).then(function (data) {
+        personManager.saveOnline(person.email, $scope.person.name, password).then(function (/*data*/) {
           $scope.loading = false;
 
           $ionicPopup.alert({

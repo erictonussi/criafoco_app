@@ -254,17 +254,17 @@ angular.module('starter.controllers')
               }
 
               refreshList();
-            }, function (error) {
+            }, function (/*error*/) {
               $ionicPopup.alert({
                 title: strings.alert,
                 template: strings.error_save_data
               });
             });
           } else {
-            registroManager.save($scope.current).then(function (response) {
+            registroManager.save($scope.current).then(function (/*response*/) {
               $scope.writerModal.hide();
               refreshList();
-            }, function (error) {
+            }, function (/*error*/) {
               $ionicPopup.alert({
                 title: strings.alert,
                 template: strings.error_save_data
@@ -283,22 +283,22 @@ angular.module('starter.controllers')
       }
     };
 
-    $scope.remove = function (event) {
+    $scope.remove = function (/*event*/) {
       var confirmPopup = $ionicPopup.confirm({
         title: strings.alert,
         template: strings.confirm_remove,
         buttons: [
-          {text: strings.no, type: 'button-default', onTap: function (e) { return false; }},
-          {text: strings.yes, type: 'button-positive', onTap: function (e) { return true; }}
+          {text: strings.no, type: 'button-default', onTap: function (/*e*/) { return false; }},
+          {text: strings.yes, type: 'button-positive', onTap: function (/*e*/) { return true; }}
         ]
       });
 
       confirmPopup.then(function (res) {
         if (res) {
-          registroManager.remove($scope.current).then(function (response) {
+          registroManager.remove($scope.current).then(function (/*response*/) {
             $scope.writerModal.hide();
             refreshList();
-          }, function (error) {
+          }, function (/*error*/) {
             $ionicPopup.alert({
               title: strings.alert,
               template: strings.error_remove
@@ -359,13 +359,13 @@ angular.module('starter.controllers')
                 {
                   text: 'OK',
                   type: 'button-positive',
-                  onTap: function (e) { return true; }
+                  onTap: function (/*e*/) { return true; }
                 }
               ]
             });
 
-            alert.then(function (res) {
-              $scope.records.forEach(function (element, index) {
+            alert.then(function (/*res*/) {
+              $scope.records.forEach(function (element/*, index*/) {
                 var found = bestVotes.find(function (x) {
                   return x.id === element.id;
                 });
@@ -379,7 +379,7 @@ angular.module('starter.controllers')
               refreshList();
             });
           } else {
-            $scope.records.forEach(function (element, index) {
+            $scope.records.forEach(function (element/*, index*/) {
               var found = bestVotes.find(function (x) {
                 return x.id === element.id;
               });
@@ -396,7 +396,7 @@ angular.module('starter.controllers')
               return a.id - b.id;
             });
 
-            registroManager.copy(bestVotes).then(function (response) {
+            registroManager.copy(bestVotes).then(function (/*response*/) {
               $rootScope.projeto.fase = 'usage';
 
               projetoManager.save($rootScope.projeto);
@@ -491,8 +491,8 @@ angular.module('starter.controllers')
         title: strings.alert,
         template: strings.confirm_reset,
         buttons: [
-          {text: strings.no, type: 'button-default', onTap: function (e) { return false; }},
-          {text: strings.yes, type: 'button-positive', onTap: function (e) { return true; }}
+          {text: strings.no, type: 'button-default', onTap: function (/*e*/) { return false; }},
+          {text: strings.yes, type: 'button-positive', onTap: function (/*e*/) { return true; }}
         ]
       });
 
