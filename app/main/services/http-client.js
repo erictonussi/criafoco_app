@@ -9,7 +9,7 @@ angular.module('starter.services')
       var person = localStorageService.get('person');
 
       if (person && destination.indexOf('salva-usuario') === -1) {
-        if (!person.password) {
+        if (person.password) {
           strAuth = btoa(person.email + ':' + person.password);
         } else {
           strAuth = btoa(person.email + ':' + person.token);
