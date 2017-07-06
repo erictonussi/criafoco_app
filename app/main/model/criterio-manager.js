@@ -23,10 +23,10 @@ angular.module('starter.services')
           });
         } else {
           var list = localStorageService.get('criterio').filter(function (x) {
-            return x.projeto === projeto.id || x.projeto === null;
+            return x.projeto === projeto.id || !x.projeto;
           });
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           }
 
@@ -85,7 +85,7 @@ angular.module('starter.services')
 
           var list = localStorageService.get('criterio');
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           }
 
@@ -122,7 +122,7 @@ angular.module('starter.services')
 
           var list = localStorageService.get('nota');
 
-          if (list === null) {
+          if (!list) {
             list = [];
           }
 
@@ -159,7 +159,7 @@ angular.module('starter.services')
         } else {
           var notas = localStorageService.get('nota');
 
-          if (notas !== undefined) {
+          if (notas) {
             var update = [];
 
             notas.forEach(function (nota) {
@@ -197,7 +197,7 @@ angular.module('starter.services')
 
         var all = localStorageService.get('criterio');
 
-        if (all !== undefined && all.length > 0) {
+        if (all && all.length > 0) {
           lastId = all[all.length - 1].id;
         }
 

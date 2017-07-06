@@ -27,7 +27,7 @@ angular.module('starter.controllers')
 
         var password = $scope.person.password;
 
-        if (password === undefined) {
+        if (!password) {
           password = person.password;
         }
 

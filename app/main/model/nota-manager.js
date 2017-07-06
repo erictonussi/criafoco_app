@@ -33,7 +33,7 @@ angular.module('starter.services')
 
           var list = [];
 
-          if (notas !== undefined) {
+          if (notas) {
             var filtered = notas.filter(function (x) {
               return x.registro === registro.id;
             });

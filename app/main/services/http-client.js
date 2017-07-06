@@ -9,7 +9,7 @@ angular.module('starter.services')
       var person = localStorageService.get('person');
 
       if (person && destination.indexOf('salva-usuario') === -1) {
-        if (person.password !== undefined) {
+        if (!person.password) {
           strAuth = btoa(person.email + ':' + person.password);
         } else {
           strAuth = btoa(person.email + ':' + person.token);
@@ -19,7 +19,7 @@ angular.module('starter.services')
       $http({
         method: method,
         url: Config.ENV.webservice.url + destination,
-        data: parameters === null ? null : angular.toJson(parameters),
+        data: !parameters ? null : angular.toJson(parameters),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Basic ' + strAuth

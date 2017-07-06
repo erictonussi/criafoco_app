@@ -28,7 +28,7 @@ angular.module('starter.services')
             return x.usuario === person.id;
           });
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           }
 
@@ -52,7 +52,7 @@ angular.module('starter.services')
           database.dbLoaded.then(function () {
             var projeto = null;
 
-            if (activeId !== undefined) {
+            if (activeId) {
               database.executeSql('SELECT * FROM projeto WHERE id_usuario = ? AND id = ? LIMIT 1', [person.id, activeId], function (resultSet) {
                 if (resultSet.rows.length === 1) {
                   projeto = new Projeto(resultSet.rows.item(0).id, resultSet.rows.item(0).id_usuario, resultSet.rows.item(0).id_projeto_pai, resultSet.rows.item(0).foco, resultSet.rows.item(0).fase, resultSet.rows.item(0).etapa, resultSet.rows.item(0).inicio, resultSet.rows.item(0).fim);
@@ -76,8 +76,8 @@ angular.module('starter.services')
 
           var projeto = null;
 
-          if (list !== undefined) {
-            if (activeId !== undefined) {
+          if (list) {
+            if (activeId) {
               projeto = list.find(function (x) {
                 return x.id === activeId && x.usuario === person.id;
               });
@@ -86,7 +86,7 @@ angular.module('starter.services')
                 return x.usuario === person.id;
               });
 
-              if (projetos !== undefined && projetos.length > 0) {
+              if (projetos && projetos.length > 0) {
                 projeto = projetos[projetos.length - 1];
                 localStorageService.set('activeProject', projeto.id);
               }
@@ -109,7 +109,7 @@ angular.module('starter.services')
 
         var fase = foco ? 'fact' : 'worry';
 
-        if (etapa === null) {
+        if (!etapa) {
           etapa = '*';
         }
 
@@ -135,7 +135,7 @@ angular.module('starter.services')
 
           var list = localStorageService.get('projeto');
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           }
 
@@ -254,7 +254,7 @@ angular.module('starter.services')
 
           var notas = localStorageService.get('nota');
 
-          if (notas !== undefined && notas.length > 0) {
+          if (notas && notas.length > 0) {
             var updateNotas = [];
 
             notas.forEach(function (nota) {
@@ -286,7 +286,7 @@ angular.module('starter.services')
 
         var all = localStorageService.get('projeto');
 
-        if (all !== undefined && all.length > 0) {
+        if (all && all.length > 0) {
           lastId = all[all.length - 1].id;
         }
 

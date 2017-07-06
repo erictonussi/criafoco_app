@@ -31,7 +31,7 @@ angular.module('starter.services')
         } else {
           var list = localStorageService.get('registro');
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           } else {
             list = list.filter(function (x) {
@@ -94,7 +94,7 @@ angular.module('starter.services')
         } else {
           var list = localStorageService.get('registro');
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           } else {
             list = list.filter(function (x) {
@@ -104,7 +104,7 @@ angular.module('starter.services')
 
           var allNotas = localStorageService.get('nota');
 
-          if (allNotas === undefined) {
+          if (!allNotas) {
             allNotas = [];
           }
 
@@ -124,7 +124,7 @@ angular.module('starter.services')
               if (nota.valor > -1) {
                 soma += nota.valor;
 
-                if (registro.vote === false) {
+                if (!registro.vote) {
                   registro.vote = true;
                 }
               }
@@ -181,7 +181,7 @@ angular.module('starter.services')
 
           var list = localStorageService.get('registro');
 
-          if (list === undefined) {
+          if (!list) {
             list = [];
           }
 
@@ -288,7 +288,7 @@ angular.module('starter.services')
 
           var notas = localStorageService.get('nota');
 
-          if (notas !== undefined) {
+          if (notas) {
             var update = notas.filter(function (x) {
               return x.registro !== registro.id;
             });
@@ -343,7 +343,7 @@ angular.module('starter.services')
 
           var notas = localStorageService.get('nota');
 
-          if (notas !== undefined && notas.length > 0) {
+          if (notas && notas.length > 0) {
             var updateNotas = [];
 
             notas.forEach(function (nota) {
@@ -373,7 +373,7 @@ angular.module('starter.services')
 
         var all = localStorageService.get('registro');
 
-        if (all !== undefined && all.length > 0) {
+        if (all && all.length > 0) {
           lastId = all[all.length - 1].id;
         }
 

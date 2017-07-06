@@ -15,7 +15,7 @@ angular.module('starter.controllers')
     });
 
     $scope.adicionar = function () {
-      if ($scope.criterio.descricao === undefined || $scope.criterio.descricao.length === 0) {
+      if (!$scope.criterio.descricao || $scope.criterio.descricao.length === 0) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.empty_field_criteria
@@ -54,7 +54,7 @@ angular.module('starter.controllers')
       var selecionados = [];
 
       $scope.criterios.forEach(function (item) {
-        if (item.selecionado !== undefined && item.selecionado) {
+        if (item.selecionado) {
           selecionados.push(item);
         }
       });

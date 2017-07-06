@@ -21,7 +21,7 @@ angular.module('starter.controllers')
     $scope.$on('modal.hidden', function (/*event, modal*/) {
       $scope.current = {};
 
-      if ($rootScope.projeto !== undefined) {
+      if ($rootScope.projeto) {
         $scope.loading = true;
 
         $timeout(function () {
@@ -58,7 +58,7 @@ angular.module('starter.controllers')
     $scope.save = function (record) {
       $scope.current = record;
 
-      if ($scope.current.descricao === undefined || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
+      if (!$scope.current.descricao || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.empty_textarea

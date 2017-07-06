@@ -19,7 +19,7 @@ angular.module('starter.services')
         }
 
         HttpClient.post('access/verifica-usuario', parameters).then(function (person) {
-          if (password !== undefined) {
+          if (password) {
             person.password = password;
           }
 
@@ -82,11 +82,11 @@ angular.module('starter.services')
 
         var current = localStorageService.get('person');
 
-        if (current.foto !== undefined) {
+        if (current.foto) {
           parameters.foto = current.foto;
         }
 
-        if (current.tipo !== undefined) {
+        if (current.tipo) {
           parameters.tipo = current.tipo;
         }
 
@@ -117,7 +117,7 @@ angular.module('starter.services')
             }).then(function (user) {
               user.accessToken = response.authResponse.accessToken;
 
-              if (user.email === undefined || user.email.length === 0) {
+              if (!user.email || user.email.length === 0) {
                 user.email = user.id;
               }
 

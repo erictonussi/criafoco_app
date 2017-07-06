@@ -11,7 +11,7 @@ angular.module('starter.controllers')
 
     var person = personManager.get();
 
-    if (person.foto === undefined) {
+    if (!person.foto) {
       $scope.photo = 'main/assets/images/default-user.png';
     } else {
       $scope.photo = person.foto;
@@ -19,7 +19,7 @@ angular.module('starter.controllers')
 
     $scope.name = person.email;
 
-    if (person.nome !== undefined) {
+    if (person.nome) {
       $scope.name = person.nome;
     }
 

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers')
   .controller('TabScriptCtrl', function ($scope, $rootScope, $state, $ionicPopup, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
-    if (localStorageService.get('activeProject') === undefined) {
+    if (!localStorageService.get('activeProject')) {
       return;
     }
 
@@ -42,7 +42,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag('note').then(function (response) {
         var noteType = response;
 
-        if (noteType !== null) {
+        if (noteType) {
           registroManager.getAll($rootScope.projeto, noteType, false).then(function (response) {
             $scope.oportunidades = response.filter(function (x) {
               return x.ob_op === 1;
@@ -64,7 +64,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag('note').then(function (response) {
         var noteType = response;
 
-        if (noteType !== null) {
+        if (noteType) {
           registroManager.getAll($rootScope.projeto, noteType, false).then(function (response) {
             $scope.obstaculos = response.filter(function (x) {
               return x.ob_op === 2;
@@ -86,7 +86,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag('creation').then(function (response) {
         var creationType = response;
 
-        if (creationType !== null) {
+        if (creationType) {
           registroManager.getAll($rootScope.projeto, creationType, false).then(function (response) {
             $scope.ideas = response;
 
@@ -106,7 +106,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag('usage').then(function (response) {
         var actionType = response;
 
-        if (actionType !== null) {
+        if (actionType) {
           registroManager.getAllWithCriterio($rootScope.projeto, actionType).then(function (response) {
             $scope.actions = response;
 

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers')
   .controller('TabNotesCtrl', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $ionicListDelegate, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
-    if (localStorageService.get('activeProject') === undefined) {
+    if (!localStorageService.get('activeProject')) {
       return;
     }
 
@@ -12,7 +12,7 @@ angular.module('starter.controllers')
 
       $scope.title = strings.note;
 
-      if ($rootScope.projeto.fim === undefined && $scope.step === 'note') {
+      if (!$rootScope.projeto.fim && $scope.step === 'note') {
         $ionicPopup.alert({
           title: strings.alert,
           template: '<img src="main/assets/images/icon-swipe-left.png"> ' + strings.define_op_ob
@@ -24,7 +24,7 @@ angular.module('starter.controllers')
     $scope.current = {};
     $scope.step = 'note';
     $scope.foco = $rootScope.projeto.foco;
-    $scope.finished = $rootScope.projeto.fim !== undefined;
+    $scope.finished = !!$rootScope.projeto.fim;
 
     $scope.writer = {
       placeholder: '',
@@ -54,7 +54,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag(searchType).then(function (response) {
         type = response;
 
-        if (type !== null) {
+        if (type) {
           refreshList();
         }
       });
@@ -197,14 +197,14 @@ angular.module('starter.controllers')
     $scope.save = function (record) {
       $scope.current = record;
 
-      if ($scope.current.descricao === undefined || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
+      if (!$scope.current.descricao || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.empty_textarea
         });
       } else {
-        if ($scope.writer.isFoco === false) {
-          if ($scope.writer.editing === false) {
+        if (!$scope.writer.isFoco) {
+          if (!$scope.writer.editing) {
             registroManager.add($scope.current.descricao, $rootScope.projeto, type).then(function (/*response*/) {
               if ($scope.writer.continue) {
                 $scope.current = {};
@@ -286,9 +286,9 @@ angular.module('starter.controllers')
           obstaculos = [];
 
           $scope.records.forEach(function (element) {
-            if (element.ob_op !== null && element.ob_op === 1) {
+            if (element.ob_op && element.ob_op === 1) {
               oportunidades.push(element);
-            } else if (element.ob_op !== null && element.ob_op === 2) {
+            } else if (element.ob_op && element.ob_op === 2) {
               obstaculos.push(element);
             }
           });
@@ -309,7 +309,7 @@ angular.module('starter.controllers')
                 return x.id === element.id;
               });
 
-              if (found === undefined) {
+              if (!found) {
                 element.descarte = true;
                 registroManager.save(element);
               }
@@ -340,7 +340,7 @@ angular.module('starter.controllers')
               return x.id === element.id;
             });
 
-            if (found === undefined) {
+            if (!found) {
               element.descarte = true;
               registroManager.save(element);
             }
@@ -370,9 +370,9 @@ angular.module('starter.controllers')
           obstaculos = [];
 
           $scope.records.forEach(function (element) {
-            if (element.ob_op !== null && element.ob_op === 1) {
+            if (element.ob_op && element.ob_op === 1) {
               oportunidades.push(element);
-            } else if (element.ob_op !== null && element.ob_op === 2) {
+            } else if (element.ob_op && element.ob_op === 2) {
               obstaculos.push(element);
             }
           });
@@ -433,7 +433,7 @@ angular.module('starter.controllers')
                     return x.id === element.id;
                   } );
 
-                  if (found === undefined) {
+                  if (!found) {
                     element.descarte = true;
                     registroManager.save(element);
                   }
@@ -459,7 +459,7 @@ angular.module('starter.controllers')
                     return x.id === element.id;
                   } );
 
-                  if (found === undefined) {
+                  if (!found) {
                     element.descarte = true;
                     registroManager.save(element);
                   }
@@ -473,7 +473,7 @@ angular.module('starter.controllers')
                 return x.id === element.id;
               });
 
-              if (found === undefined) {
+              if (!found) {
                 element.descarte = true;
                 registroManager.save(element);
               }
@@ -484,7 +484,7 @@ angular.module('starter.controllers')
                 return x.id === element.id;
               });
 
-              if (found === undefined) {
+              if (!found) {
                 element.descarte = true;
                 registroManager.save(element);
               }

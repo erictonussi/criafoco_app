@@ -110,7 +110,7 @@ angular.module('starter.controllers')
     };
 
     $scope.signUp = function (form) {
-      if (form.$valid === false) {
+      if (!form.$valid) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.invalid_username_password
@@ -139,7 +139,7 @@ angular.module('starter.controllers')
     };
 
     $scope.signIn = function (form) {
-      if (form.$valid === false) {
+      if (!form.$valid) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.invalid_username_password
@@ -166,7 +166,7 @@ angular.module('starter.controllers')
       $scope.isConnect = true;
     };
 
-    if (localStorageService.get('tipo_registro') === undefined) {
+    if (!localStorageService.get('tipo_registro')) {
       tipoRegistroManager.install();
       criterioManager.install();
     }

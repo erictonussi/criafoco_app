@@ -23,7 +23,7 @@ angular.module('starter.controllers')
         var records = [];
 
         response.forEach(function (element) {
-          if (element.fim !== undefined) {
+          if (element.fim) {
             element.fim = new Date(element.fim);
           } else {
             someOpen = true;

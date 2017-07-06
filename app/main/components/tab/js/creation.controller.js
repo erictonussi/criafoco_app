@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers')
   .controller('TabCreationCtrl', function ($scope, $rootScope, $state, $timeout, $interval, $ionicModal, $ionicPopup, $ionicPopover, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
-    if (localStorageService.get('activeProject') === undefined) {
+    if (!localStorageService.get('activeProject')) {
       return;
     }
 
@@ -19,9 +19,9 @@ angular.module('starter.controllers')
     $scope.stimulusType = 'cri';
     $scope.canActiveStimulus = true;
     $scope.foco = $rootScope.projeto.foco;
-    $scope.finished = $rootScope.projeto.fim !== undefined;
+    $scope.finished = !!$rootScope.projeto.fim;
 
-    if (localStorageService.get('defaultStimulus') !== undefined) {
+    if (localStorageService.get('defaultStimulus')) {
       $scope.activeStimulus = localStorageService.get('defaultStimulus');
     } else {
       $scope.activeStimulus = true;
@@ -41,14 +41,14 @@ angular.module('starter.controllers')
       if (modal.id === 1) {
         $scope.current = {};
 
-        if ($scope.popover !== undefined) {
+        if ($scope.popover) {
           $scope.popover.remove();
 
           // bug fix : https://github.com/driftyco/ionic-v1/issues/53
           angular.element(document.body).removeClass('popover-open');
         }
 
-        if (promisseStimulus !== undefined) {
+        if (promisseStimulus) {
           $interval.cancel(promisseStimulus);
           promisseStimulus = undefined;
         }
@@ -57,7 +57,7 @@ angular.module('starter.controllers')
           $scope.writerModal.remove();
         }, 1000);
       } else {
-        if ($scope.canActiveStimulus && $scope.activeStimulus && promisseStimulus === undefined) {
+        if ($scope.canActiveStimulus && $scope.activeStimulus && !promisseStimulus) {
           promisseStimulus = $interval(openStimulus, 8000);
         }
 
@@ -80,7 +80,7 @@ angular.module('starter.controllers')
           });
         }, 1000);
 
-        if ($scope.canActiveStimulus && $scope.activeStimulus && promisseStimulus === undefined) {
+        if ($scope.canActiveStimulus && $scope.activeStimulus && !promisseStimulus) {
           promisseStimulus = $interval(openStimulus, 8000);
         }
       }
@@ -94,7 +94,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag(searchType).then(function (response) {
         type = response;
 
-        if (type !== null) {
+        if (type) {
           refreshList();
         }
       });
@@ -234,14 +234,14 @@ angular.module('starter.controllers')
     $scope.save = function (record) {
       $scope.current = record;
 
-      if ($scope.current.descricao === undefined || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
+      if (!$scope.current.descricao || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.empty_textarea
         });
       } else {
-        if ($scope.writer.isFoco === false) {
-          if ($scope.writer.editing === false) {
+        if (!$scope.writer.isFoco) {
+          if (!$scope.writer.editing) {
             registroManager.add($scope.current.descricao, $rootScope.projeto, type).then(function (/*response*/) {
               if ($scope.writer.continue) {
                 $scope.current = {};
@@ -370,7 +370,7 @@ angular.module('starter.controllers')
                   return x.id === element.id;
                 });
 
-                if (found === undefined) {
+                if (!found) {
                   element.descarte = true;
                   registroManager.save(element);
                 }
@@ -384,7 +384,7 @@ angular.module('starter.controllers')
                 return x.id === element.id;
               });
 
-              if (found === undefined) {
+              if (!found) {
                 element.descarte = true;
                 registroManager.save(element);
               }
@@ -414,7 +414,7 @@ angular.module('starter.controllers')
     };
 
     function openStimulus () {
-      if (promisseStimulus !== undefined) {
+      if (promisseStimulus) {
         $interval.cancel(promisseStimulus);
         promisseStimulus = undefined;
       }
@@ -444,11 +444,11 @@ angular.module('starter.controllers')
       localStorageService.set('defaultStimulus', $scope.activeStimulus);
 
       if ($scope.activeStimulus) {
-        if (promisseStimulus === undefined) {
+        if (!promisseStimulus) {
           promisseStimulus = $interval(openStimulus, 8000);
         }
       } else {
-        if (promisseStimulus !== undefined) {
+        if (promisseStimulus) {
           $interval.cancel(promisseStimulus);
           promisseStimulus = undefined;
         }
@@ -456,8 +456,8 @@ angular.module('starter.controllers')
     };
 
     $scope.$watch('current.descricao', function () {
-      if ($scope.writerModal !== undefined && $scope.writerModal.isShown() && $scope.canActiveStimulus && $scope.activeStimulus) {
-        if (promisseStimulus !== undefined) {
+      if ($scope.writerModal && $scope.writerModal.isShown() && $scope.canActiveStimulus && $scope.activeStimulus) {
+        if (promisseStimulus) {
           $interval.cancel(promisseStimulus);
           promisseStimulus = undefined;
         }
@@ -470,7 +470,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag('note').then(function (response) {
         var noteType = response;
 
-        if (noteType !== null) {
+        if (noteType) {
           registroManager.getAll($rootScope.projeto, noteType, false).then(function (response) {
             $scope.obstaculos = response.filter(function (x) {
               return x.ob_op === 2;

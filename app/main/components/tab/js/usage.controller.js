@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers')
   .controller('TabUsageCtrl', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $translate, tipoRegistroManager, registroManager, criterioManager, notaManager, projetoManager, localStorageService) {
-    if (localStorageService.get('activeProject') === undefined) {
+    if (!localStorageService.get('activeProject')) {
       return;
     }
 
@@ -17,7 +17,7 @@ angular.module('starter.controllers')
     $scope.current = {};
     $scope.step = 'usage';
     $scope.foco = $rootScope.projeto.foco;
-    $scope.finished = $rootScope.projeto.fim !== undefined;
+    $scope.finished = !!$rootScope.projeto.fim;
 
     $scope.writer = {
       maxLength: 50,
@@ -54,7 +54,7 @@ angular.module('starter.controllers')
       tipoRegistroManager.getByFlag(searchType).then(function (response) {
         type = response;
 
-        if (type !== null) {
+        if (type) {
           refreshList();
         }
       });
@@ -159,13 +159,13 @@ angular.module('starter.controllers')
     $scope.save = function (record) {
       $scope.current = record;
 
-      if ($scope.current.descricao === undefined || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
+      if (!$scope.current.descricao || ($scope.current.descricao.length === 0 || $scope.current.descricao.length > $scope.writer.maxLength)) {
         $ionicPopup.alert({
           title: strings.alert,
           template: strings.empty_textarea
         });
       } else {
-        if ($scope.writer.editing === true && $scope.writer.isFoco) {
+        if ($scope.writer.editing && $scope.writer.isFoco) {
           $rootScope.projeto.foco = record.descricao;
 
           $scope.foco = record.descricao;
@@ -186,7 +186,7 @@ angular.module('starter.controllers')
       var canContinue = true;
 
       $scope.records.forEach(function (element) {
-        if (canContinue && element.vote === false) {
+        if (canContinue && !element.vote) {
           canContinue = false;
         }
       });
