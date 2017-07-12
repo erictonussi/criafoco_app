@@ -300,7 +300,7 @@ angular.module('starter.controllers')
             });
           } else {
           // oportunidades.push(...obstaculos);
-            oportunidades.apply(null, obstaculos);
+            oportunidades.push.apply(oportunidades, obstaculos);
 
             var bestVotes = oportunidades;
 
