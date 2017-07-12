@@ -15,7 +15,8 @@ var buildDependencies = [
   options['force-build'] ? 'linting' : 'linting-throw',
   'build-app',
   'build-templates',
-  'build-assets'
+  'build-assets',
+  'build-locales'
 ];
 
 // cachebusting function, which will update stream (index.html),
@@ -91,4 +92,11 @@ gulp.task('build-assets', ['clean', 'bower-fonts'], function () {
   return gulp.src('app/*/assets/**/*')
     .pipe($.if(options.minify, $.imagemin()))
     .pipe(gulp.dest(paths.dist));
+});
+
+
+// copy locales
+gulp.task('build-locales', [], function () {
+  return gulp.src('app/locales/*')
+    .pipe(gulp.dest(paths.dist + '/locales'));
 });

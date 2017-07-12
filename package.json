@@ -13,7 +13,7 @@
     "run:ios": "gulp --cordova 'run ios",
     "run:android": "gulp --cordova 'run android'",
     "watch:build": "gulp watch-build",
-    "build": "gulp build --minify",
+    "build": "gulp build --minify --env prod",
     "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
   },
   "devDependencies": {

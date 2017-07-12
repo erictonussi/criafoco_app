@@ -18,7 +18,10 @@
   },
   "overrides": {
     "font-awesome": {
-      "main": "css/font-awesome.css"
+      "main": [
+        "css/font-awesome.css",
+        "fonts/*"
+      ]
     },
     "ion-floating-menu": {
       "main": [
