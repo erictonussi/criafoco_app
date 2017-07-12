@@ -5,8 +5,32 @@ angular.module('starter')
   // gulp environment: injects environment vars
   ENV: {
     /*inject-env*/
-    'SERVER_URL': 'https://DEVSERVER/api',
-    'SOME_OTHER_URL': '/postman-proxy'
+    'startPage': {
+      'url': '/',
+      'state': 'welcome'
+    },
+    'webservice': {
+      'root': '',
+      'url': 'criafoco-services/',
+      'auth': 'YXBpdXNlcjphcGlwYXNz'
+    },
+    'facebook': {
+      'appId-': '1299266256819488',
+      'appId': '104219843035003'
+    },
+    'languages': {
+      'default': 'pt-BR',
+      'available': [
+        'pt-BR',
+        'en-US'
+      ]
+    },
+    'dataSource': 'localStorage',
+    'minRecords': 2,
+    'person': {
+      'username': 'criafoco@tonussi.com',
+      'password': '123123'
+    }
     /*endinject*/
   },
 

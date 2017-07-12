@@ -5,7 +5,7 @@
   },
   "scripts": {
     "test": "gulp build --minify && gulp karma",
-    "start": "gulp watch",
+    "start": "gulp watch --proxy",
     "watch": "npm start",
     "prepare:all": "gulp --cordova 'prepare'",
     "livereload:ios": "gulp --livereload 'run ios'",
@@ -13,7 +13,7 @@
     "run:ios": "gulp --cordova 'run ios",
     "run:android": "gulp --cordova 'run android'",
     "watch:build": "gulp watch-build",
-    "build": "gulp build --minify",
+    "build": "gulp build --minify --env prod",
     "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
   },
   "devDependencies": {
@@ -74,12 +74,8 @@
   "generator-m-ionic": {
     "proxies": [
       {
-        "proxyMapFrom": "/postman-proxy",
-        "proxyMapTo": "https://echo.getpostman.com"
-      },
-      {
-        "proxyMapFrom": "/another-proxy",
-        "proxyMapTo": "https://echo.getpostman.com"
+        "proxyMapFrom": "/criafoco-services",
+        "proxyMapTo": "http://54.233.92.83/criafoco-services"
       }
     ]
   },
