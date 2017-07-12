@@ -7,7 +7,7 @@ angular.module('starter.controllers')
 
     var strings = {};
 
-    $translate(['note', 'alert', 'error_list', 'add_note', 'placeholder_note', 'edit_note', 'edit_focus', 'my_focus', 'evaluate', 'error_save_data', 'confirm_remove', 'yes', 'no', 'error_remove', 'add_limit_fact', 'need_evaluate_fact', 'confirm_reset', 'cancel', 'empty_textarea', 'define_op_ob', 'define_num_op_ob', 'tutorial', 'evaluate_more_ob', 'evaluate_more_op']).then(function (translations) {
+    $translate(['note', 'alert', 'error_list', 'add_note', 'placeholder_note', 'edit_note', 'edit_focus', 'my_focus', 'evaluate', 'error_save_data', 'confirm_remove', 'yes', 'no', 'error_remove', 'add_limit_fact', 'need_evaluate_fact', 'confirm_reset', 'cancel', 'empty_textarea', 'define_op_ob', 'define_num_op_ob', 'tutorial', 'evaluate_more_ob', 'evaluate_more_op', 'need_evaluate_notes']).then(function (translations) {
       strings = translations;
 
       $scope.title = strings.note;
