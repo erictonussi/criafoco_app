@@ -20,7 +20,10 @@
 
         <ion-list class="has-fab" ng-hide="records.length == 0" can-swipe="false" ng-cloak>
             <ion-item class="item-icon-right" ng-repeat="record in records track by record.id">
-                <h2>{{record.descricao}}</h2>
+                <span>{{record.descricao}}</span>
+                <span class="item-note" ng-if="record.avaliacao !== -1">
+                  {{record.avaliacao}}
+                </span>
                 <md-icon md-font-icon="{{record.vote ? 'fa-star' : 'fa-star-o'}}" aria-label="{{record.descricao}}" class="icon md-secondary fa fa-2x" ng-class="record.vote ? 'energized' : ''" ng-show="step == 'usage'" ng-click="scoreItem(record, $event)"></md-icon>
             </ion-item>
         </ion-list>

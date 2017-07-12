@@ -36,14 +36,20 @@
             <md-subheader class="md-no-sticky">{{'opportunities' | translate | uppercase}}</md-subheader>
 
             <ion-item class="item-icon-right notes-content" ng-class="record.ob_op ? (record.ob_op == 2 ? 'obstaculo' : 'oportunidade') : ''" ng-repeat="record in records track by record.id" ng-if="record.ob_op == 1" ng-click="editModal(record)">
-                <h2>{{record.descricao}}</h2>
+                <span>{{record.descricao}}</span>
+                <span class="item-note" ng-if="record.avaliacao !== -1">
+                  {{record.avaliacao}}
+                </span>
                 <md-icon md-font-icon="{{record.avaliacao > -1 ? 'fa-star' : 'fa-star-o'}}" aria-label="{{record.descricao}}" class="icon md-secondary fa fa-2x" ng-class="record.avaliacao > -1 ? 'energized' : ''" ng-show="step == 'score-note'" ng-click="scoreItem(record, $event)"></md-icon>
             </ion-item>
 
             <md-subheader class="md-no-sticky">{{'obstacles' | translate | uppercase}}</md-subheader>
 
             <ion-item class="item-icon-right notes-content" ng-class="record.ob_op ? (record.ob_op == 2 ? 'obstaculo' : 'oportunidade') : ''" ng-repeat="record in records track by record.id" ng-if="record.ob_op == 2" ng-click="editModal(record)">
-                <h2>{{record.descricao}}</h2>
+                <span>{{record.descricao}}</span>
+                <span class="item-note" ng-if="record.avaliacao !== -1">
+                  {{record.avaliacao}}
+                </span>
                 <md-icon md-font-icon="{{record.avaliacao > -1 ? 'fa-star' : 'fa-star-o'}}" aria-label="{{record.descricao}}" class="icon md-secondary fa fa-2x" ng-class="record.avaliacao > -1 ? 'energized' : ''" ng-show="step == 'score-note'" ng-click="scoreItem(record, $event)"></md-icon>
             </ion-item>
         </ion-list>
