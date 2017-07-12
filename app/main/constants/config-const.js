@@ -26,7 +26,11 @@ angular.module('starter')
       ]
     },
     'dataSource': 'localStorage',
-    'minRecords': 2
+    'minRecords': 2,
+    'person': {
+      'username': 'criafoco@tonussi.com',
+      'password': '123123'
+    }
     /*endinject*/
   },
 

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('WelcomeCtrl', function ($scope, $rootScope, $state, $mdDialog, $translate, $ionicModal, $ionicPopup, localStorageService, personManager, tipoRegistroManager, criterioManager, projetoManager) {
+  .controller('WelcomeCtrl', function ($scope, $rootScope, $state, $mdDialog, $translate, $ionicModal, $ionicPopup, localStorageService, personManager, tipoRegistroManager, criterioManager, projetoManager, Config) {
     var strings = {};
 
     $translate(['invalid_username_password', 'alert', 'success_register']).then(function (translations) {
@@ -68,7 +68,7 @@ angular.module('starter.controllers')
     $scope.isConnect = true;
     $scope.loading = false;
 
-    $scope.person = {};
+    $scope.person = Config.ENV.person || {};
 
     $scope.facebookLogin = function () {
       $scope.loading = true;
