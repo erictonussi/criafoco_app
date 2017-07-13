@@ -1,42 +1,44 @@
-<?xml version="1.1" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="13" id="br.com.criafoco" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>CriaFoco</name>
-  <description>Método para criar foco e o passo a passo para chegar lá!</description>
-  <author email="pauloandreget@gmail.com" href="http://www.riabox.com.br/">Paulo Rodrigues</author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="FadeSplashScreenDuration" value="2000"/>
-  <preference name="android-minSdkVersion" value="16"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <preference name="StatusBarBackgroundColor" value="#2a56c6"/>
-  <preference name="StatusBarStyle" value="lightcontent"/>
-  <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreen" value="screen"/>
-  <feature name="StatusBar">
-    <param name="ios-package" onload="true" value="CDVStatusBar"/>
-  </feature>
-  <feature name="Keyboard">
-    <param name="ios-package" onload="true" value="IonicKeyboard"/>
-  </feature>
-  <plugin name="cordova-sqlite-storage" spec="~2.0.2"/>
-  <platform name="android">
-    <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png"/>
-    <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png"/>
-    <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png"/>
-    <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png"/>
-    <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png"/>
-    <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png"/>
-    <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
-    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
-    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
-    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi"/>
-    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi"/>
-    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
-  </platform>
-  <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
+    <name>CriaFoco</name>
+    <description>Método para criar foco e o passo a passo para chegar lá!</description>
+    <author email="pauloandreget@gmail.com" href="http://www.riabox.com.br/">Paulo Rodrigues</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="SplashScreenDelay" value="2000" />
+    <preference name="FadeSplashScreenDuration" value="2000" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="StatusBarBackgroundColor" value="#2a56c6" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="SplashScreen" value="screen" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="ios-package" onload="true" value="IonicKeyboard" />
+    </feature>
+    <platform name="android">
+        <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="resources/android/icon/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/drawable-xxxhdpi-icon.png" />
+    </platform>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <engine name="android" spec="^6.2.3" />
+    <plugin name="cordova-plugin-google-analytics" spec="git+https://github.com/danwilson/google-analytics-plugin.git" />
+    <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
 </widget>

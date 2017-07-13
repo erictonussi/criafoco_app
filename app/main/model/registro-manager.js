@@ -113,7 +113,7 @@ angular.module('starter.services')
               return x.registro === registro.id;
             });
 
-            var soma = -3;
+            var soma = 0;//-3;
             var quantidade = 0;
 
             registro.vote = false;

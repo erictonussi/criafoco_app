@@ -10,8 +10,8 @@ angular.module('starter')
       'state': 'welcome'
     },
     'webservice': {
-      'root': '',
-      'url': 'criafoco-services/',
+      'root': 'http://54.233.92.83',
+      'url': 'http://54.233.92.83/criafoco-services/',
       'auth': 'YXBpdXNlcjphcGlwYXNz'
     },
     'facebook': {
@@ -26,11 +26,7 @@ angular.module('starter')
       ]
     },
     'dataSource': 'localStorage',
-    'minRecords': 2,
-    'person': {
-      'username': 'criafoco@tonussi.com',
-      'password': '123123'
-    }
+    'minRecords': 2
     /*endinject*/
   },
 

@@ -1,9 +1,11 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('TabNotesCtrl', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $ionicListDelegate, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
+  .controller('TabNotesCtrl', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $ionicListDelegate, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager, ga) {
     if (!localStorageService.get('activeProject')) {
       return;
     }
+
+    ga.trackView('Notes');
 
     var strings = {};
 

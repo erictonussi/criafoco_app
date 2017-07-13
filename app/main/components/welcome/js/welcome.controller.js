@@ -1,11 +1,13 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('WelcomeCtrl', function ($scope, $rootScope, $state, $mdDialog, $translate, $ionicModal, $ionicPopup, localStorageService, personManager, tipoRegistroManager, criterioManager, projetoManager, Config) {
+  .controller('WelcomeCtrl', function ($scope, $rootScope, $state, $mdDialog, $translate, $ionicModal, $ionicPopup, localStorageService, personManager, tipoRegistroManager, criterioManager, projetoManager, Config, ga) {
     var strings = {};
 
     $translate(['invalid_username_password', 'alert', 'success_register']).then(function (translations) {
       strings = translations;
     });
+
+    ga.trackView('Welcome');
 
     var checkActiveProject = function () {
       projetoManager.getActive().then(function (response) {

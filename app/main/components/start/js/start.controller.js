@@ -1,11 +1,13 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('StartCtrl', ['$scope', '$rootScope', '$state', '$timeout', '$ionicModal', '$ionicPopup', '$translate', 'projetoManager', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $translate, projetoManager) {
+  .controller('StartCtrl', function ($scope, $rootScope, $state, $timeout, $ionicModal, $ionicPopup, $translate, projetoManager, ga) {
     var strings = {};
 
     $translate(['tutorial', 'define_focus', 'my_focus', 'empty_textarea', 'alert']).then(function (translations) {
       strings = translations;
     });
+
+    ga.trackView('Start');
 
     $scope.current = {};
     $scope.loading = false;
@@ -79,4 +81,4 @@ angular.module('starter.controllers')
         template: '<p class="text-center">' + message + '</p>'
       });
     };
-  }]);
+  });

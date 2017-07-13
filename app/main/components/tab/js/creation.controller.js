@@ -1,9 +1,11 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('TabCreationCtrl', function ($scope, $rootScope, $state, $timeout, $interval, $ionicModal, $ionicPopup, $ionicPopover, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
+  .controller('TabCreationCtrl', function ($scope, $rootScope, $state, $timeout, $interval, $ionicModal, $ionicPopup, $ionicPopover, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager, ga) {
     if (!localStorageService.get('activeProject')) {
       return;
     }
+
+    ga.trackView('Creation');
 
     var strings = {};
 

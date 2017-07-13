@@ -17,6 +17,7 @@
 /platforms/
 /plugins/
 /res/*/current/
+/resources/
 
 # build folder
 /www/**

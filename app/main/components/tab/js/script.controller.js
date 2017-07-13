@@ -1,9 +1,11 @@
 'use strict';
 angular.module('starter.controllers')
-  .controller('TabScriptCtrl', function ($scope, $rootScope, $state, $ionicPopup, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager) {
+  .controller('TabScriptCtrl', function ($scope, $rootScope, $state, $ionicPopup, $translate, localStorageService, tipoRegistroManager, registroManager, projetoManager, ga) {
     if (!localStorageService.get('activeProject')) {
       return;
     }
+
+    ga.trackView('Script');
 
     var strings = {};
 

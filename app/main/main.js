@@ -5,14 +5,15 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services',
   'ngMaterial',
-  'ngCordova',
+  // 'ngCordova',
+  // 'ngCordovaMocks',
   'pascalprecht.translate',
   'LocalStorageModule',
   'ngOpenFB',
   'ion-floating-menu'
 ])
 
-  .run(function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB, Config) {
+  .run(function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB, Config, ga) {
     ngFB.init({appId: Config.ENV.facebook.appId});
 
     function getSuitableLanguage (language) {
@@ -89,6 +90,9 @@ angular.module('starter', [
 
     $ionicPlatform.ready(function () {
       setApplicationLanguage();
+
+      ga.startTrackerWithId('UA-102528472-1');
+      ga.setAllowIDFACollection(true);
 
       if (window.cordova && window.cordova.plugins) {
         // Hide the accessory bar by default
@@ -200,6 +204,33 @@ angular.module('starter', [
     // Set up the various states which the app can be in.
     // Each state's controller can be found in controllers.js
     $stateProvider
+
+      // .state('app', {
+      //   url: '',
+      //   resolve: {
+      //     googleAnalytics: function ($ionicPlatform, $q) {
+      //       var defer = $q.defer();
+
+      //       $ionicPlatform.ready(function () {
+      //         console.log('googleAnalytics');
+      //         defer.resolve(true);
+      //       });
+
+      //       return defer.promise;
+      //     }
+      //   },
+      //   template: '<ion-nav-view></ion-nav-view>',
+      //   abstract: true,
+      //   controller: function (googleAnalytics, $cordovaGoogleAnalytics) {
+      //     console.log('startTrackerWithId');
+      //     $cordovaGoogleAnalytics.startTrackerWithId('UA-102528472-1')
+      //       .then(function () {
+      //         // $cordovaGoogleAnalytics.setAllowIDFACollection(true);
+      //         window.ga && window.ga.setAllowIDFACollection(true);
+      //       });
+      //   }
+      // })
+
       .state('welcome', {
         url: '/',
         templateUrl: 'main/components/welcome/html/welcome.html',
