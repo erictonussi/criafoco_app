@@ -14,7 +14,8 @@
         "run:android": "gulp --cordova \"run android\" --env prod",
         "watch:build": "gulp watch-build",
         "build": "gulp build --minify --env prod",
-        "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
+        "postinstall": "./node_modules/protractor/bin/webdriver-manager update",
+        "upload": "ionic package build android --profile criafoco --release"
     },
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
