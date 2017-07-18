@@ -1,8 +1,10 @@
 .hex-row {
     clear: left;
+    margin: auto;
+    width: 355px;
 }
 .hex.hex-even {
-    margin-top: 58px;
+    margin-top: 60px;
 }
 .hex.hex-hide {
     visibility: hidden;
@@ -11,13 +13,30 @@
   width: 134px;
   position: relative;
   float: left;
-  margin-right: -25px;
-  margin-bottom: -73px;
+  margin-right: -27px;
+  margin-bottom: -75px;
   overflow: hidden;
   padding: 68px;
   transform: rotate(30deg) skewY(30deg) scaleX(.866);
   pointer-events: none;
 }
+
+@media (max-width: 359px) {
+  .hex-row {
+    width: 310px;
+  }
+  .hex {
+    width: 100px;
+    padding: 60px;
+    margin-bottom: -68px;
+    margin-right: -25px;
+  }
+  .hex.hex-even {
+    margin-top: 52px;
+  }
+
+}
+
 .hex:before {
   content: '';
   display: block;
@@ -222,13 +241,13 @@ ion-content p, md-checkbox, .popup-title, .popup-body {
 
 .start-container a, .start-container button {
   position: relative;
-  width: 70%;
-  height: 0;
+  width: 70vw;
+  height: 70vw;
   margin: -10px auto;
-  padding: 35% 0;
+  // padding: 35% 0;
   border-radius: 50%;
   font-size: 150%;
-  line-height: 0;
+  line-height: 1;
   background-color: rgba(255, 255, 255, 0.6);
   font-weight: bold; }
 
@@ -426,7 +445,8 @@ div.fb-spacer {
   height: 90px; }
 
 .hexagon-map {
-  height: 100%; }
+  height: 100%;
+  padding-top: 10%; }
 
 form.profile-form label {
   margin: 10px 0;
