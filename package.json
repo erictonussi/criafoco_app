@@ -84,12 +84,14 @@
         "angular-ui-router": "^1.0.3",
         "cordova-android": "^6.2.3",
         "cordova-plugin-google-analytics": "git+https://github.com/danwilson/google-analytics-plugin.git",
-        "cordova-sqlite-storage": "^2.0.4"
+        "cordova-sqlite-storage": "^2.0.4",
+        "ionic-plugin-deploy": "^0.6.7"
     },
     "cordova": {
         "plugins": {
             "cordova-plugin-google-analytics": {},
-            "cordova-sqlite-storage": {}
+            "cordova-sqlite-storage": {},
+            "ionic-plugin-deploy": {}
         },
         "platforms": [
             "android"

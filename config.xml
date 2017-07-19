@@ -74,4 +74,5 @@
   <engine name="android" spec="^6.2.3"/>
   <plugin name="cordova-plugin-google-analytics" spec="git+https://github.com/danwilson/google-analytics-plugin.git"/>
   <plugin name="cordova-sqlite-storage" spec="^2.0.4"/>
+  <plugin name="ionic-plugin-deploy" spec="^0.6.7"/>
 </widget>
