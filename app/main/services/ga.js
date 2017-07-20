@@ -45,7 +45,7 @@ angular.module('starter.services')
     methodsName.forEach(function (funcName) {
       methods[funcName] = function () {
 
-        $log.log('funcName: ' + arguments);
+        $log.log(funcName + ': ' + JSON.stringify(arguments));
 
         var defer = $q.defer();
 
