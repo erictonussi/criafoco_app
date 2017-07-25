@@ -372,7 +372,8 @@ ion-modal-view div.button-bottom {
   padding: 0px 10px; }
 
 div.custom-content-alert .popup-body {
-  padding: 0; }
+  // padding: 0;
+}
   div.custom-content-alert .popup-body p {
     margin: 0px 0px 5px; }
   // div.custom-content-alert .popup-body .range input {
@@ -523,108 +524,82 @@ h1.title {
 .ic-script-off {
   background: url(../assets/images/ic_tab_script_off.svg) no-repeat center; }
 
-.custom-range {
-  display: flex;
-  padding: 10px;
+div.custom-content-alert .popup-body {
+  // border: 1px solid;
 }
 
-.custom-range input[type=range] {
-  & {
-    appearance: none;
-    width: 100%;
-    // margin: 0.7px 0;
-    margin: 5px 10px;
-    background: none;
-  }
-  &:focus {
-    outline: none;
-  }
-  &::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    // box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #ccc;
-    // border-radius: 0px;
-    // border: 0px solid #010101;
-    appearance: none;
-    border: 0;
-    border-radius: 2px;
-  }
-  &::-webkit-slider-thumb {
-    box-shadow: 0px 1px 4px rgba(0,0,0,.6);
-    // border: 0px solid #ff1e00;
-    border: 0;
-    height: 25px;
-    width: 25px;
-    border-radius: 100%;
-    background: #fff;
-    cursor: pointer;
-    appearance: none;
-    margin-top: -11px;
-  }
-  &:focus::-webkit-slider-runnable-track {
-    // background: #545a5a;
-  }
-  // &::-moz-range-track {
-  //   width: 100%;
-  //   height: 25.6px;
-  //   cursor: pointer;
-  //   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  //   background: #484d4d;
-  //   border-radius: 0px;
-  //   border: 0px solid #010101;
-  // }
-  // &::-moz-range-thumb {
-  //   box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
-  //   border: 0px solid #ff1e00;
-  //   height: 27px;
-  //   width: 18px;
-  //   border-radius: 0px;
-  //   background: rgba(255, 67, 95, 0.93);
-  //   cursor: pointer;
-  // }
-  // &::-ms-track {
-  //   width: 100%;
-  //   height: 25.6px;
-  //   cursor: pointer;
-  //   background: transparent;
-  //   border-color: transparent;
-  //   color: transparent;
-  // }
-  // &::-ms-fill-lower {
-  //   background: #3c4040;
-  //   border: 0px solid #010101;
-  //   border-radius: 0px;
-  //   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  // }
-  // &::-ms-fill-upper {
-  //   background: #484d4d;
-  //   border: 0px solid #010101;
-  //   border-radius: 0px;
-  //   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  // }
-  // &::-ms-thumb {
-  //   box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
-  //   border: 0px solid #ff1e00;
-  //   height: 27px;
-  //   width: 18px;
-  //   border-radius: 0px;
-  //   background: rgba(255, 67, 95, 0.93);
-  //   cursor: pointer;
-  //   height: 25.6px;
-  // }
-  // &:focus::-ms-fill-lower {
-  //   background: #484d4d;
-  // }
-  // &:focus::-ms-fill-upper {
-  //   background: #545a5a;
-  // }
-
-  + * {
-    min-width: 20px;
-    display: block;
+.custom-range {
+  display: flex;
+  align-items: center;
+  // padding: 10px;
+  // border: 1px solid;
+  // width: 100%;
+  // margin: 0;
+  // position: relative;
+  > strong {
+    width: 20px;
     text-align: center;
   }
+}
 
+// .custom-range input[type=range] {
+//   & {
+//     appearance: none;
+//     width: 100%;
+//     // margin: 0.7px 0;
+//     // margin: 5px 10px;
+//     margin-right: 5px;
+//     background: none;
+//     flex: 1;
+//   }
+//   &:focus {
+//     outline: none;
+//   }
+//   &::-webkit-slider-runnable-track {
+//     width: 100%;
+//     height: 3px;
+//     cursor: pointer;
+//     // box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+//     background: #ccc;
+//     // border-radius: 0px;
+//     // border: 0px solid #010101;
+//     appearance: none;
+//     border: 0;
+//     border-radius: 2px;
+//   }
+//   &::-webkit-slider-thumb {
+//     box-shadow: 0px 1px 4px rgba(0,0,0,.6);
+//     // border: 0px solid #ff1e00;
+//     border: 0;
+//     height: 25px;
+//     width: 25px;
+//     border-radius: 100%;
+//     background: #fff;
+//     cursor: pointer;
+//     margin-top: -11px;
+//     // .platform-browser &,
+//     .platform-android & {
+//       appearance: none;
+//     }
+//     .platform-ios & {
+//       background: red;
+//       box-shadow: none;
+//     }
+//   }
+//   &:focus::-webkit-slider-runnable-track {
+//     // background: #545a5a;
+//   }
+
+//   + * {
+//     min-width: 20px;
+//     display: block;
+//     text-align: center;
+//   }
+
+// }
+
+powerange {
+  width: 100%;
+  padding: 15px 10px;
+  overflow: hidden;
 }

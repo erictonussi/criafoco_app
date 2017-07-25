@@ -165,7 +165,8 @@ angular.module('starter.controllers')
       var relevancePopup = $ionicPopup.alert({
         title: strings.evaluate,
         cssClass: 'custom-content-alert',
-        template: '<p>{{current.descricao}}</p><div class="custom-range"><input type="range" name="volume" min="0" max="10" ng-model="current.avaliacao"><strong>{{current.avaliacao > -1 ? current.avaliacao : "0"}}</strong></div>',
+        // template: '<p>{{current.descricao}}</p><div class="custom-range"><input type="range" name="volume" min="0" max="10" ng-model="current.avaliacao"><strong>{{current.avaliacao > -1 ? current.avaliacao : "0"}}</strong></div>',
+        template: '<p>{{current.descricao}}</p><div class="custom-range"><powerange ng-model="current.avaliacao"></powerange><strong>{{current.avaliacao > -1 ? current.avaliacao : "0"}}</strong></div>',
         scope: $scope,
         buttons: [
           { text: strings.cancel },
