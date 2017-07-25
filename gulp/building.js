@@ -16,7 +16,7 @@ var buildDependencies = [
   'build-app',
   'build-templates',
   'build-assets',
-  'build-locales'
+  // 'build-locales'
 ];
 
 // cachebusting function, which will update stream (index.html),
@@ -68,8 +68,15 @@ gulp.task('build-app', ['clean', 'inject-all'], function () {
   }
 
   stream
-  .pipe(cachebust())
-  .pipe(gulp.dest(paths.dist));
+    .pipe(cachebust())
+    .pipe(gulp.dest(paths.dist));
+
+  stream
+    .pipe(gulp.src('app/oauthcallback.html'))
+    .pipe(gulp.dest(paths.dist));
+
+  gulp.src('app/locales/*')
+    .pipe(gulp.dest(paths.dist + '/locales'));
 
   return stream;
 });

@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="13" id="br.com.criafoco" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="18" id="br.com.criafoco" version="1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CriaFoco</name>
     <description>Método para criar foco e o passo a passo para chegar lá!</description>
     <author email="pauloandreget@gmail.com" href="http://www.riabox.com.br/">Paulo Rodrigues</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="http://54.233.92.83/" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -73,6 +74,9 @@
     <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-google-analytics" spec="git+https://github.com/danwilson/google-analytics-plugin.git" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.3" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-deploy" spec="^0.6.7" />
+    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
 </widget>

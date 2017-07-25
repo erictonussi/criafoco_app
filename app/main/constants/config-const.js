@@ -10,13 +10,13 @@ angular.module('starter')
       'state': 'welcome'
     },
     'webservice': {
-      'root': '',
-      'url': 'criafoco-services/',
+      'root': 'http://54.233.92.83',
+      'url': 'http://54.233.92.83/criafoco-services/',
       'auth': 'YXBpdXNlcjphcGlwYXNz'
     },
     'facebook': {
-      'appId-': '1299266256819488',
-      'appId': '104219843035003'
+      'appId': '1299266256819488',
+      'appId-': '104219843035003'
     },
     'languages': {
       'default': 'pt-BR',
@@ -26,12 +26,7 @@ angular.module('starter')
       ]
     },
     'dataSource': 'localStorage',
-    'minRecords': 2,
-    'person': {
-      'username': 'criafoco@tonussi.com',
-      'password': '123123'
-    },
-    'debug': true
+    'minRecords': 2
     /*endinject*/
   },
 

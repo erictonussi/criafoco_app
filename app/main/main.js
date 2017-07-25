@@ -2,6 +2,7 @@
 
 angular.module('starter', [
   'ionic',
+  'ionic.cloud',
   'starter.controllers',
   'starter.services',
   'ngMaterial',
@@ -13,7 +14,15 @@ angular.module('starter', [
   'ion-floating-menu'
 ])
 
-  .run(function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB, Config, ga) {
+  .config(function ($ionicCloudProvider) {
+    $ionicCloudProvider.init({
+      'core': {
+        'app_id': 'ee2b41b7'
+      }
+    });
+  })
+
+  .run(function ($ionicPlatform, $translate, $cordovaGlobalization, $state, $rootScope, ngFB, Config, ga, $ionicDeploy) {
     ngFB.init({appId: Config.ENV.facebook.appId});
 
     function getSuitableLanguage (language) {
@@ -167,6 +176,20 @@ angular.module('starter', [
         navigator.app.backHistory();
       }
     }, 100);
+
+    $ionicDeploy.check()
+      .then(function (snapshotAvailable) {
+        if (snapshotAvailable) {
+          $ionicDeploy.download()
+            .then(function () {
+              return $ionicDeploy.extract();
+            })
+            .then(function () {
+              $ionicDeploy.load();
+            });
+        }
+      });
+
   })
 
   // Internationalize and Localize
@@ -232,9 +255,10 @@ angular.module('starter', [
       // })
 
       .state('welcome', {
+        cache: false,
         url: '/',
         templateUrl: 'main/components/welcome/html/welcome.html',
-        controller: 'WelcomeCtrl'
+        controller: 'WelcomeCtrl',
       })
       .state('start', {
         cache: false,

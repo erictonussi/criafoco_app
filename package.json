@@ -15,8 +15,8 @@
         "watch:build": "gulp watch-build",
         "build": "gulp build --minify --env prod",
         "postinstall": "./node_modules/protractor/bin/webdriver-manager update",
-        "upload": "ionic upload",
-        "package": "ionic package build android --profile criafoco --release"
+        "upload": "npm run build && ionic upload",
+        "package": "npm run build && ionic package build android --profile criafoco --release"
     },
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
@@ -86,19 +86,33 @@
         "cordova-android": "^6.2.3",
         "cordova-plugin-google-analytics": "git+https://github.com/danwilson/google-analytics-plugin.git",
         "cordova-sqlite-storage": "^2.0.4",
-        "ionic-plugin-deploy": "^0.6.7"
+        "ionic-plugin-deploy": "^0.6.7",
+        "cordova-plugin-statusbar": "~2.2.3",
+        "cordova-plugin-whitelist": "1",
+        "ionic-plugin-keyboard": "~2.2.1"
     },
     "cordova": {
         "plugins": {
             "cordova-plugin-google-analytics": {},
             "cordova-sqlite-storage": {},
-            "ionic-plugin-deploy": {}
+            "ionic-plugin-deploy": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {}
         },
         "platforms": [
             "android"
         ]
     },
-    "cordovaPlugins": [],
+    "cordovaPlugins": [
+        "cordova-plugin-console",
+        "cordova-plugin-device",
+        "cordova-plugin-whitelist",
+        "cordova-plugin-statusbar",
+        "cordova-plugin-splashscreen",
+        "cordova-plugin-inappbrowser",
+        "ionic-plugin-keyboard"
+    ],
     "cordovaPlatforms": [
         "android"
     ]
