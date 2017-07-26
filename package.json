@@ -16,7 +16,8 @@
         "build": "gulp build --minify --env prod",
         "postinstall": "./node_modules/protractor/bin/webdriver-manager update",
         "upload": "npm run build && ionic upload",
-        "package": "npm run build && ionic package build android --profile criafoco --release"
+        "android-package": "npm run build && ionic package build android --profile criafoco --release",
+        "ios-package": "npm run build && ionic package build ios --profile criafoco --release"
     },
     "devDependencies": {
         "babel-preset-es2015": "^6.24.1",
