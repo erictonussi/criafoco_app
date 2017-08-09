@@ -100,7 +100,7 @@ angular.module('starter', [
     $ionicPlatform.ready(function () {
       setApplicationLanguage();
 
-      ga.startTrackerWithId('UA-96709168-1');
+      ga.startTrackerWithId('UA-104255729-1');
       ga.setAllowIDFACollection(true);
 
       if (window.cordova && window.cordova.plugins) {
