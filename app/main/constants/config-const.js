@@ -15,8 +15,7 @@ angular.module('starter')
       'auth': 'YXBpdXNlcjphcGlwYXNz'
     },
     'facebook': {
-      'appId': '1299266256819488',
-      'appId-': '104219843035003'
+      'appId': '323890448070249'
     },
     'languages': {
       'default': 'pt-BR',
